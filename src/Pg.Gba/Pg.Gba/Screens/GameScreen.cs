@@ -12,7 +12,7 @@ namespace Pg.Gba.Screens
         protected SpriteBatch SpriteBatch => Game._spriteBatch;
         protected SpriteFont Font => Game._font;
 
-        public GameScreen(GridBasedAdventureGame game)
+        protected GameScreen(GridBasedAdventureGame game)
         {
             Game = game;
         }
@@ -20,7 +20,7 @@ namespace Pg.Gba.Screens
         public abstract void Update(GameTime gameTime, KeyboardState currentKeyState, KeyboardState previousKeyState);
         public abstract void Draw();
 
-        protected bool IsKeyPressed(Keys key, KeyboardState currentKeyState, KeyboardState previousKeyState)
+        protected static bool IsKeyPressed(Keys key, KeyboardState currentKeyState, KeyboardState previousKeyState)
         {
             return currentKeyState.IsKeyDown(key) && previousKeyState.IsKeyUp(key);
         }
