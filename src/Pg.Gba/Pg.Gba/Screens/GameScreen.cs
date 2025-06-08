@@ -15,8 +15,10 @@ namespace Pg.Gba.Screens
         protected GameScreen(GridBasedAdventureGame game)
         {
             Game = game;
+            LoadContent(); 
         }
 
+        public abstract void LoadContent();
         public abstract void Update(GameTime gameTime, KeyboardState currentKeyState, KeyboardState previousKeyState);
         public abstract void Draw();
 

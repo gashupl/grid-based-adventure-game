@@ -45,6 +45,7 @@ namespace Pg.Gba
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _font = Content.Load<SpriteFont>("Font1");
+
         }
 
         public void ChangeState(GameState newState)
@@ -84,11 +85,11 @@ namespace Pg.Gba
                 case GameState.Title:
                     return Color.CornflowerBlue;
                 case GameState.Game1:
-                    return Color.ForestGreen;
+                    return Color.Black; 
                 case GameState.Game2:
                     return Color.Crimson;
                 default:
-                    return Color.Black;
+                    return Color.Yellow;
             }
         }
     }
