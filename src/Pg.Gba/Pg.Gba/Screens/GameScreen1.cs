@@ -14,17 +14,9 @@ namespace Pg.Gba.Screens
         private Vector2 _imagePosition;
         private readonly Random _random = new Random();
 
-        public GameScreen1(GridBasedAdventureGame game) : base(game) { }
-
-        public override void LoadContent()
+        public GameScreen1(GridBasedAdventureGame game) : base(game) 
         {
-            // Load the image
-            _sampleImage = this.Game.Content.Load<Texture2D>("img/sample01");
-
-            // Calculate random position ensuring the image stays within bounds
-            int maxX = this.Game.GraphicsDevice.Viewport.Width - 32;
-            int maxY = this.Game.GraphicsDevice.Viewport.Height - 32;
-            _imagePosition = new Vector2(_random.Next(0, maxX + 1), _random.Next(0, maxY + 1));
+            LoadContent(); 
         }
 
         public override void Update(GameTime gameTime, KeyboardState currentKeyState, KeyboardState previousKeyState)
@@ -46,6 +38,17 @@ namespace Pg.Gba.Screens
             SpriteBatch.DrawString(Font, "Press Escape to return to Title", new Vector2(100, 200), Color.White);
             
             SpriteBatch.Draw(_sampleImage, _imagePosition, Color.White);
+        }
+
+        private void LoadContent()
+        {
+            // Load the image
+            _sampleImage = this.Game.Content.Load<Texture2D>("img/sample01");
+
+            // Calculate random position ensuring the image stays within bounds
+            int maxX = this.Game.GraphicsDevice.Viewport.Width - 32;
+            int maxY = this.Game.GraphicsDevice.Viewport.Height - 32;
+            _imagePosition = new Vector2(_random.Next(0, maxX + 1), _random.Next(0, maxY + 1));
         }
     }
 }
