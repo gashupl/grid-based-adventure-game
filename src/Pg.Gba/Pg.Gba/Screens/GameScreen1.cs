@@ -4,7 +4,6 @@ using Pg.Gba.State;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using SharpDX.Direct2D1;
-using Microsoft.Xna.Framework.Content;
 
 namespace Pg.Gba.Screens
 {
@@ -13,7 +12,7 @@ namespace Pg.Gba.Screens
 
         private Texture2D _sampleImage;
         private Vector2 _imagePosition;
-        private Random _random = new Random();
+        private readonly Random _random = new Random();
 
         public GameScreen1(GridBasedAdventureGame game) : base(game) { }
 
@@ -42,14 +41,11 @@ namespace Pg.Gba.Screens
 
         public override void Draw()
         {
-            //SpriteBatch.Begin();
-
             SpriteBatch.DrawString(Font, "GAME 1 SCREEN", new Vector2(100, 100), Color.White);
             SpriteBatch.DrawString(Font, "Press Enter to go to Game 2", new Vector2(100, 150), Color.White);
             SpriteBatch.DrawString(Font, "Press Escape to return to Title", new Vector2(100, 200), Color.White);
             
             SpriteBatch.Draw(_sampleImage, _imagePosition, Color.White);
-          //  SpriteBatch.End();
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Pg.Gba.Screens
             LoadContent(); 
         }
 
-        public abstract void LoadContent();
+        public virtual void LoadContent() { }
         public abstract void Update(GameTime gameTime, KeyboardState currentKeyState, KeyboardState previousKeyState);
         public abstract void Draw();
 
