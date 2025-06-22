@@ -4,6 +4,7 @@ using Pg.Gba.State;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using SharpDX.Direct2D1;
+using Pg.Gba.Utils;
 
 namespace Pg.Gba.Screens
 {
@@ -12,17 +13,17 @@ namespace Pg.Gba.Screens
 
         private Texture2D _sampleImage;
         private Vector2 _imagePosition;
+        private bool _isImageClicked = false;
         private readonly Random _random = new Random();
 
         // Add this variable to store the mouse position
         private Vector2? _lastLeftClickPosition = null;
-
-        // Store previous mouse state for click detection
         private MouseState _previousMouseState;
 
-        public GameScreen1(GridBasedAdventureGame game) : base(game) 
+      
+        public GameScreen1(GridBasedAdventureGame game) : base(game)
         {
-            LoadContent(); 
+            LoadContent();
         }
 
         public override void Update(GameTime gameTime, KeyboardState currentKeyState, KeyboardState previousKeyState)
@@ -43,6 +44,7 @@ namespace Pg.Gba.Screens
             {
                 // Store mouse position on left click
                 _lastLeftClickPosition = new Vector2(currentMouseState.X, currentMouseState.Y);
+                _isImageClicked = ImageHelper.IsImageClicked(_sampleImage, _imagePosition, currentMouseState);
             }
             _previousMouseState = currentMouseState;
         }
@@ -52,8 +54,10 @@ namespace Pg.Gba.Screens
             SpriteBatch.DrawString(Font, "GAME 1 SCREEN", new Vector2(100, 100), Color.White);
             SpriteBatch.DrawString(Font, "Press Enter to go to Game 2", new Vector2(100, 150), Color.White);
             SpriteBatch.DrawString(Font, "Press Escape to return to Title", new Vector2(100, 200), Color.White);
-            SpriteBatch.DrawString(Font, $"Mouse clicked on X: {_lastLeftClickPosition?.X} Y: {_lastLeftClickPosition?.Y}", 
+            SpriteBatch.DrawString(Font, $"Mouse clicked on X: {_lastLeftClickPosition?.X} Y: {_lastLeftClickPosition?.Y}",
                 new Vector2(100, 250), Color.White);
+            SpriteBatch.DrawString(Font, $"Image Clicked: {_isImageClicked}", new Vector2(100, 300), Color.Yellow);
+
 
             SpriteBatch.Draw(_sampleImage, _imagePosition, Color.White);
         }
