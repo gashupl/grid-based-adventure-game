@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Pg.Gba.Utils
 {
-    internal class ImageHelper
+    internal static class ImageHelper
     {
         public static  bool IsImageClicked(Texture2D sampleImage, Vector2 imagePosition, MouseState currentMouseState)
         {
