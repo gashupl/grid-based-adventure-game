@@ -18,10 +18,10 @@ namespace Pg.Gba.Screens
 
         // Add this variable to store the mouse position
         private Vector2? _lastLeftClickPosition = null;
-        private MouseState _previousMouseState;
+        
 
       
-        public GameScreen1(GridBasedAdventureGame game) : base(game)
+        public GameScreen1(GridBasedAdventureGame game, bool enableMouseInput) : base(game, enableMouseInput)
         {
             LoadContent();
         }
@@ -39,14 +39,14 @@ namespace Pg.Gba.Screens
 
             // Mouse handling
             MouseState currentMouseState = Mouse.GetState();
-            if (currentMouseState.LeftButton == ButtonState.Pressed &&
-                _previousMouseState.LeftButton == ButtonState.Released)
+            if (IsLeftMouseButtonClicked(currentMouseState, PreviousMouseState))
             {
                 // Store mouse position on left click
                 _lastLeftClickPosition = new Vector2(currentMouseState.X, currentMouseState.Y);
                 _isImageClicked = ImageHelper.IsImageClicked(_sampleImage, _imagePosition, currentMouseState);
             }
-            _previousMouseState = currentMouseState;
+            PreviousMouseState = currentMouseState;
+
         }
 
         public override void Draw()

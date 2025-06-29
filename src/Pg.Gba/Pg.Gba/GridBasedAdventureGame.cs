@@ -34,7 +34,7 @@ namespace Pg.Gba
             _screens = new Dictionary<GameState, GameScreen>
             {
                 { GameState.Title, new TitleScreen(this) },
-                { GameState.Game1, new GameScreen1(this) },
+                { GameState.Game1, new GameScreen1(this, true) },
                 { GameState.Game2, new GameScreen2(this) }
             };
 
