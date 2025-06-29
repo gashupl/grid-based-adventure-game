@@ -26,26 +26,19 @@ namespace Pg.Gba.Screens
             LoadContent();
         }
 
-        public override void Update(GameTime gameTime, KeyboardState currentKeyState, KeyboardState previousKeyState)
+        public override void Update(GameTime gameTime, InputDevicesState inputDeviceState)
         {
-            if (IsKeyPressed(Keys.Enter, currentKeyState, previousKeyState))
+            if (IsKeyPressed(Keys.Enter, inputDeviceState.CurrentKeyState, inputDeviceState.PreviousKeyState))
             {
                 Game.ChangeState(GameState.Game2);
             }
-            else if (IsKeyPressed(Keys.Escape, currentKeyState, previousKeyState))
+            else if (IsKeyPressed(Keys.Escape, inputDeviceState.CurrentKeyState, inputDeviceState.PreviousKeyState))
             {
                 Game.ChangeState(GameState.Title);
             }
 
             // Mouse handling
-            MouseState currentMouseState = Mouse.GetState();
-            if (IsLeftMouseButtonClicked(currentMouseState, PreviousMouseState))
-            {
-                // Store mouse position on left click
-                _lastLeftClickPosition = new Vector2(currentMouseState.X, currentMouseState.Y);
-                _isImageClicked = ImageHelper.IsImageClicked(_sampleImage, _imagePosition, currentMouseState);
-            }
-            PreviousMouseState = currentMouseState;
+            HandleMouseClick(inputDeviceState.CurrentMouseState, inputDeviceState.PreviousMouseState); 
 
         }
 
@@ -71,6 +64,16 @@ namespace Pg.Gba.Screens
             int maxX = this.Game.GraphicsDevice.Viewport.Width - 32;
             int maxY = this.Game.GraphicsDevice.Viewport.Height - 32;
             _imagePosition = new Vector2(_random.Next(0, maxX + 1), _random.Next(0, maxY + 1));
+        }
+
+        private void HandleMouseClick(MouseState currentMouseState, MouseState previousMouseState)
+        {
+            if (IsLeftMouseButtonClicked(currentMouseState, previousMouseState))
+            {
+                // Store mouse position on left click
+                _lastLeftClickPosition = new Vector2(currentMouseState.X, currentMouseState.Y);
+                _isImageClicked = ImageHelper.IsImageClicked(_sampleImage, _imagePosition, currentMouseState);
+            }
         }
     }
 }

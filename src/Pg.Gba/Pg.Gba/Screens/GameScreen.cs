@@ -1,6 +1,7 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework;
+using Pg.Gba.State;
 
 
 namespace Pg.Gba.Screens
@@ -12,7 +13,7 @@ namespace Pg.Gba.Screens
         protected SpriteBatch SpriteBatch => Game._spriteBatch;
         protected SpriteFont Font => Game._font;
         protected bool EnableMouseInput;
-        protected MouseState PreviousMouseState;
+        
 
         protected GameScreen(GridBasedAdventureGame game, bool enableMouseInput = false)
         {
@@ -20,7 +21,7 @@ namespace Pg.Gba.Screens
             EnableMouseInput = enableMouseInput;
         }
 
-        public abstract void Update(GameTime gameTime, KeyboardState currentKeyState, KeyboardState previousKeyState);
+        public abstract void Update(GameTime gameTime, InputDevicesState inputDeviceState);
         public abstract void Draw();
 
         protected static bool IsKeyPressed(Keys key, KeyboardState currentKeyState, KeyboardState previousKeyState)
