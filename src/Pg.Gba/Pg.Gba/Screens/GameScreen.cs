@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Pg.Gba.State;
+using Pg.Gba.Utils;
 
 
 namespace Pg.Gba.Screens
@@ -21,7 +22,19 @@ namespace Pg.Gba.Screens
             EnableMouseInput = enableMouseInput;
         }
 
-        public abstract void Update(GameTime gameTime, InputDevicesState inputDeviceState);
+        public virtual void Update(GameTime gameTime, InputDevicesState inputDeviceState)
+        {
+            // Mouse handling
+            if (IsLeftMouseButtonClicked(inputDeviceState.CurrentMouseState, inputDeviceState.PreviousMouseState))
+            {
+                HandleLeftMouseClick(inputDeviceState.CurrentMouseState, inputDeviceState.PreviousMouseState);
+            }
+
+            if(IsRightMouseButtonClicked(inputDeviceState.CurrentMouseState, inputDeviceState.PreviousMouseState))
+            {
+                HandleRightMouseClick(inputDeviceState.CurrentMouseState, inputDeviceState.PreviousMouseState);
+            }
+        }
         public abstract void Draw();
 
         protected static bool IsKeyPressed(Keys key, KeyboardState currentKeyState, KeyboardState previousKeyState)
@@ -29,7 +42,15 @@ namespace Pg.Gba.Screens
             return currentKeyState.IsKeyDown(key) && previousKeyState.IsKeyUp(key);
         }
 
-        protected bool IsLeftMouseButtonClicked(MouseState currentMouseState, MouseState previousMouseState)
+        protected virtual void HandleLeftMouseClick(MouseState currentMouseState, MouseState previousMouseState)
+        {
+        }
+
+        protected virtual void HandleRightMouseClick(MouseState currentMouseState, MouseState previousMouseState)
+        {
+        }
+
+        private bool IsLeftMouseButtonClicked(MouseState currentMouseState, MouseState previousMouseState)
         {
             if (!EnableMouseInput) 
                 return false; 
@@ -37,7 +58,7 @@ namespace Pg.Gba.Screens
             return currentMouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton == ButtonState.Released;
         }
 
-        protected bool IsRightMouseButtonClicked(MouseState currentMouseState, MouseState previousMouseState)
+        private bool IsRightMouseButtonClicked(MouseState currentMouseState, MouseState previousMouseState)
         {
             if (!EnableMouseInput)
                 return false;
