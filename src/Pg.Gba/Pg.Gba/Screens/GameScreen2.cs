@@ -9,9 +9,9 @@ namespace Pg.Gba.Screens
     {
         public GameScreen2(GridBasedAdventureGame game) : base(game) { }
 
-        public override void Update(GameTime gameTime, KeyboardState currentKeyState, KeyboardState previousKeyState)
+        public override void Update(GameTime gameTime, InputDevicesState inputDeviceState)
         {
-            if (IsKeyPressed(Keys.Escape, currentKeyState, previousKeyState))
+            if (IsKeyPressed(Keys.Escape, inputDeviceState.CurrentKeyState, inputDeviceState.PreviousKeyState))
             {
                 Game.ChangeState(GameState.Title);
             }

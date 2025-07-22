@@ -12,7 +12,8 @@ namespace Pg.Gba
         internal GraphicsDeviceManager _graphics;
         internal SpriteBatch _spriteBatch;
         private GameState _currentState;
-        private KeyboardState _previousKeyboardState;
+        private KeyboardState _previousKeyboardState; 
+        private MouseState _previousMouseState;
         internal SpriteFont _font;
 
         // Dictionary to store all game screens
@@ -29,12 +30,13 @@ namespace Pg.Gba
         protected override void Initialize()
         {
             _previousKeyboardState = Keyboard.GetState();
+            _previousMouseState = Mouse.GetState();
 
             // Create all screens
             _screens = new Dictionary<GameState, GameScreen>
             {
                 { GameState.Title, new TitleScreen(this) },
-                { GameState.Game1, new GameScreen1(this) },
+                { GameState.Game1, new GameScreen1(this, true) },
                 { GameState.Game2, new GameScreen2(this) }
             };
 
@@ -56,11 +58,14 @@ namespace Pg.Gba
         protected override void Update(GameTime gameTime)
         {
             var currentKeyboardState = Keyboard.GetState();
+            var currentMouseState = Mouse.GetState();
 
             // Get the current screen and update it
-            _screens[_currentState].Update(gameTime, currentKeyboardState, _previousKeyboardState);
+            _screens[_currentState].Update(gameTime, 
+                new InputDevicesState(currentKeyboardState, _previousKeyboardState, currentMouseState, _previousMouseState));
 
             _previousKeyboardState = currentKeyboardState;
+            _previousMouseState = currentMouseState;
             base.Update(gameTime);
         }
 

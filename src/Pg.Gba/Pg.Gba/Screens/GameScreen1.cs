@@ -18,35 +18,27 @@ namespace Pg.Gba.Screens
 
         // Add this variable to store the mouse position
         private Vector2? _lastLeftClickPosition = null;
-        private MouseState _previousMouseState;
+        private Vector2? _lastRightClickPosition = null;
 
-      
-        public GameScreen1(GridBasedAdventureGame game) : base(game)
+
+
+        public GameScreen1(GridBasedAdventureGame game, bool enableMouseInput) : base(game, enableMouseInput)
         {
             LoadContent();
         }
 
-        public override void Update(GameTime gameTime, KeyboardState currentKeyState, KeyboardState previousKeyState)
+        public override void Update(GameTime gameTime, InputDevicesState inputDeviceState)
         {
-            if (IsKeyPressed(Keys.Enter, currentKeyState, previousKeyState))
+            if (IsKeyPressed(Keys.Enter, inputDeviceState.CurrentKeyState, inputDeviceState.PreviousKeyState))
             {
                 Game.ChangeState(GameState.Game2);
             }
-            else if (IsKeyPressed(Keys.Escape, currentKeyState, previousKeyState))
+            else if (IsKeyPressed(Keys.Escape, inputDeviceState.CurrentKeyState, inputDeviceState.PreviousKeyState))
             {
                 Game.ChangeState(GameState.Title);
             }
 
-            // Mouse handling
-            MouseState currentMouseState = Mouse.GetState();
-            if (currentMouseState.LeftButton == ButtonState.Pressed &&
-                _previousMouseState.LeftButton == ButtonState.Released)
-            {
-                // Store mouse position on left click
-                _lastLeftClickPosition = new Vector2(currentMouseState.X, currentMouseState.Y);
-                _isImageClicked = ImageHelper.IsImageClicked(_sampleImage, _imagePosition, currentMouseState);
-            }
-            _previousMouseState = currentMouseState;
+            base.Update(gameTime, inputDeviceState);
         }
 
         public override void Draw()
@@ -54,9 +46,11 @@ namespace Pg.Gba.Screens
             SpriteBatch.DrawString(Font, "GAME 1 SCREEN", new Vector2(100, 100), Color.White);
             SpriteBatch.DrawString(Font, "Press Enter to go to Game 2", new Vector2(100, 150), Color.White);
             SpriteBatch.DrawString(Font, "Press Escape to return to Title", new Vector2(100, 200), Color.White);
-            SpriteBatch.DrawString(Font, $"Mouse clicked on X: {_lastLeftClickPosition?.X} Y: {_lastLeftClickPosition?.Y}",
+            SpriteBatch.DrawString(Font, $"Left mouse button clicked on X: {_lastLeftClickPosition?.X} Y: {_lastLeftClickPosition?.Y}",
                 new Vector2(100, 250), Color.White);
-            SpriteBatch.DrawString(Font, $"Image Clicked: {_isImageClicked}", new Vector2(100, 300), Color.Yellow);
+            SpriteBatch.DrawString(Font, $"Right mouse button clicked on X: {_lastRightClickPosition?.X} Y: {_lastRightClickPosition?.Y}",
+                new Vector2(100, 300), Color.White);
+            SpriteBatch.DrawString(Font, $"Image Clicked: {_isImageClicked}", new Vector2(100, 350), Color.Yellow);
 
 
             SpriteBatch.Draw(_sampleImage, _imagePosition, Color.White);
@@ -71,6 +65,19 @@ namespace Pg.Gba.Screens
             int maxX = this.Game.GraphicsDevice.Viewport.Width - 32;
             int maxY = this.Game.GraphicsDevice.Viewport.Height - 32;
             _imagePosition = new Vector2(_random.Next(0, maxX + 1), _random.Next(0, maxY + 1));
+        }
+
+        protected override void HandleLeftMouseClick(MouseState currentMouseState, MouseState previousMouseState)
+        {
+            // Store mouse position on left click
+            _lastLeftClickPosition = new Vector2(currentMouseState.X, currentMouseState.Y);
+            _isImageClicked = ImageHelper.IsImageClicked(_sampleImage, _imagePosition, currentMouseState);
+        }
+
+        protected override void HandleRightMouseClick(MouseState currentMouseState, MouseState previousMouseState)
+        {
+            // Store mouse position on right click
+            _lastRightClickPosition = new Vector2(currentMouseState.X, currentMouseState.Y);
         }
     }
 }

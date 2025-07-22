@@ -9,13 +9,13 @@ namespace Pg.Gba.Screens
     {
         public TitleScreen(GridBasedAdventureGame game) : base(game) { }
 
-        public override void Update(GameTime gameTime, KeyboardState currentKeyState, KeyboardState previousKeyState)
+        public override void Update(GameTime gameTime, InputDevicesState inputDeviceState)
         {
-            if (IsKeyPressed(Keys.Enter, currentKeyState, previousKeyState))
+            if (IsKeyPressed(Keys.Enter, inputDeviceState.CurrentKeyState, inputDeviceState.PreviousKeyState))
             {
                 Game.ChangeState(GameState.Game1);
             }
-            else if (IsKeyPressed(Keys.Escape, currentKeyState, previousKeyState))
+            else if (IsKeyPressed(Keys.Escape, inputDeviceState.CurrentKeyState, inputDeviceState.PreviousKeyState))
             {
                 Game.Exit();
             }
