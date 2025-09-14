@@ -3,12 +3,16 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Pg.Gba.Screens;
 using Pg.Gba.State;
+using System;
 using System.Collections.Generic;
 
 namespace Pg.Gba
 {
     public class GridBasedAdventureGame : Game
     {
+        internal static int GameResolutionWidth = 1600; //1920;
+        internal static int GameResolutionHeigth = 900; //1080;
+
         internal GraphicsDeviceManager _graphics;
         internal SpriteBatch _spriteBatch;
         private GameState _currentState;
@@ -21,6 +25,15 @@ namespace Pg.Gba
 
         public GridBasedAdventureGame()
         {
+
+            if (GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width < GameResolutionWidth ||
+                GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height < GameResolutionHeigth)
+            {
+                throw new Exception("Required resolution not supported");
+            }
+
+            //this.GraphicsDevice.DeviceReset += OnDeviceReset;
+
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
@@ -29,6 +42,22 @@ namespace Pg.Gba
 
         protected override void Initialize()
         {
+
+
+#if !DEBUG
+            // Get the display's current resolution
+            var displayMode = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode;
+            GameResolutionWidth = displayMode.Width;
+            GameResolutionHeigth = displayMode.Height;
+            _graphics.PreferredBackBufferWidth = GameResolutionWidth;
+            _graphics.PreferredBackBufferHeight = GameResolutionHeigth;
+            _graphics.ToggleFullScreen();
+#elif DEBUG
+            _graphics.PreferredBackBufferWidth = GameResolutionWidth;
+            _graphics.PreferredBackBufferHeight = GameResolutionHeigth;
+#endif
+            _graphics.ApplyChanges();
+
             _previousKeyboardState = Keyboard.GetState();
             _previousMouseState = Mouse.GetState();
 
@@ -67,6 +96,13 @@ namespace Pg.Gba
             _previousKeyboardState = currentKeyboardState;
             _previousMouseState = currentMouseState;
             base.Update(gameTime);
+        }
+
+        private void OnDeviceReset(object sender, EventArgs e)
+        {
+            _graphics.PreferredBackBufferWidth = GameResolutionWidth;
+            _graphics.PreferredBackBufferHeight = GameResolutionHeigth;
+            _graphics.ApplyChanges();
         }
 
         protected override void Draw(GameTime gameTime)
