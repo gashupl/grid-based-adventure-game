@@ -51,6 +51,7 @@ namespace Pg.Gba
             GameResolutionHeigth = displayMode.Height;
             _graphics.PreferredBackBufferWidth = GameResolutionWidth;
             _graphics.PreferredBackBufferHeight = GameResolutionHeigth;
+            _graphics.HardwareModeSwitch = false; //Prevent crashes when clicking in the bottom of the game window
             _graphics.ToggleFullScreen();
 #elif DEBUG
             _graphics.PreferredBackBufferWidth = GameResolutionWidth;
