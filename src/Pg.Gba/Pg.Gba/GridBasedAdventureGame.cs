@@ -99,13 +99,6 @@ namespace Pg.Gba
             base.Update(gameTime);
         }
 
-        private void OnDeviceReset(object sender, EventArgs e)
-        {
-            _graphics.PreferredBackBufferWidth = GameResolutionWidth;
-            _graphics.PreferredBackBufferHeight = GameResolutionHeigth;
-            _graphics.ApplyChanges();
-        }
-
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(GetBackgroundColor());
