@@ -13,11 +13,11 @@ namespace Pg.Gba.Screens
         {
             if (IsKeyPressed(Keys.Enter, inputDeviceState.CurrentKeyState, inputDeviceState.PreviousKeyState))
             {
-                Game.ChangeState(GameState.Game1);
+                ChangeScreen(GameState.Game1);
             }
             else if (IsKeyPressed(Keys.Escape, inputDeviceState.CurrentKeyState, inputDeviceState.PreviousKeyState))
             {
-                Game.Exit();
+                ExitGame(); 
             }
         }
 

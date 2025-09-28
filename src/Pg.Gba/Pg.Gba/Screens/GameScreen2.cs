@@ -13,7 +13,7 @@ namespace Pg.Gba.Screens
         {
             if (IsKeyPressed(Keys.Escape, inputDeviceState.CurrentKeyState, inputDeviceState.PreviousKeyState))
             {
-                Game.ChangeState(GameState.Title);
+                ChangeScreen(GameState.Title);
             }
         }
 
