@@ -10,8 +10,7 @@ namespace Pg.Gba
 {
     public class GridBasedAdventureGame : Game
     {
-        internal static int GameResolutionWidth = 1600; //1920;
-        internal static int GameResolutionHeigth = 900; //1080;
+
 
         internal GraphicsDeviceManager _graphics;
         internal SpriteBatch _spriteBatch;
@@ -19,6 +18,9 @@ namespace Pg.Gba
         private KeyboardState _previousKeyboardState; 
         private MouseState _previousMouseState;
         internal SpriteFont _font;
+
+        private int GameResolutionWidth = 1600; //1920;
+        private static int GameResolutionHeigth = 900; //1080;
 
         // Dictionary to store all game screens
         private Dictionary<GameState, GameScreen> _screens;
@@ -29,10 +31,8 @@ namespace Pg.Gba
             if (GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width < GameResolutionWidth ||
                 GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height < GameResolutionHeigth)
             {
-                throw new Exception("Required resolution not supported");
+                throw new NotSupportedException("Required resolution not supported");
             }
-
-            //this.GraphicsDevice.DeviceReset += OnDeviceReset;
 
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
