@@ -19,8 +19,8 @@ namespace Pg.Gba
         private MouseState _previousMouseState;
         internal SpriteFont _font;
 
-        private int GameResolutionWidth = 1600; //1920;
-        private static int GameResolutionHeigth = 900; //1080;
+        private static int GameResolutionWidth = 1600; 
+        private static int GameResolutionHeigth = 900;
 
         // Dictionary to store all game screens
         private Dictionary<GameState, GameScreen> _screens;
