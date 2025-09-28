@@ -37,6 +37,15 @@ namespace Pg.Gba.Screens
         }
         public abstract void Draw();
 
+        protected void ChangeScreen(GameState newState)
+        {
+            Game.ChangeState(newState);
+        }
+        protected void ExitGame()
+        {
+            Game.Exit();
+        }   
+
         protected static bool IsKeyPressed(Keys key, KeyboardState currentKeyState, KeyboardState previousKeyState)
         {
             return currentKeyState.IsKeyDown(key) && previousKeyState.IsKeyUp(key);
