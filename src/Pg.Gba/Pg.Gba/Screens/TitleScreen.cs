@@ -7,7 +7,14 @@ namespace Pg.Gba.Screens
 {
     internal class TitleScreen : GameScreen
     {
-        public TitleScreen(GridBasedAdventureGame game) : base(game) { }
+        private Texture2D _backgroundTexture;
+
+        public TitleScreen(GridBasedAdventureGame game) : base(game) 
+        {
+            // Load the background image
+            _backgroundTexture = Game.Content.Load<Texture2D>("img/backgrounds/titlescreenbackground");
+
+        }
 
         public override void Update(GameTime gameTime, InputDevicesState inputDeviceState)
         {
@@ -23,9 +30,16 @@ namespace Pg.Gba.Screens
 
         public override void Draw()
         {
-            SpriteBatch.DrawString(Font, "TITLE SCREEN", new Vector2(100, 100), Color.White);
-            SpriteBatch.DrawString(Font, "Press Enter to play Game 1", new Vector2(100, 150), Color.White);
-            SpriteBatch.DrawString(Font, "Press Escape to exit", new Vector2(100, 200), Color.White);
+            // Draw the background image stretched to the window size
+            SpriteBatch.Draw(
+                _backgroundTexture,
+                destinationRectangle: new Rectangle(0, 0, Game._graphics.PreferredBackBufferWidth, Game._graphics.PreferredBackBufferHeight),
+                color: Color.White
+            );
+
+            SpriteBatch.DrawString(Font, "ADVENTURE GAME", new Vector2(100, 100), Color.White);
+            SpriteBatch.DrawString(Font, "PRESS ENTER TO PLAY", new Vector2(100, 150), Color.White);
+            SpriteBatch.DrawString(Font, "PRESS ESCAPE TO EXIT", new Vector2(100, 200), Color.White);
         }
     }
 }
