@@ -43,14 +43,14 @@ namespace Pg.Gba.Screens
 
         public override void Draw()
         {
-            SpriteBatch.DrawString(Font, "GAME 1 SCREEN", new Vector2(100, 100), Color.White);
-            SpriteBatch.DrawString(Font, "Press Enter to go to Game 2", new Vector2(100, 150), Color.White);
-            SpriteBatch.DrawString(Font, "Press Escape to return to Title", new Vector2(100, 200), Color.White);
-            SpriteBatch.DrawString(Font, $"Left mouse button clicked on X: {_lastLeftClickPosition?.X} Y: {_lastLeftClickPosition?.Y}",
+            SpriteBatch.DrawString(TitleScreenTitleFont, "GAME 1 SCREEN", new Vector2(100, 100), Color.White);
+            SpriteBatch.DrawString(TitleScreenMenuItemFont, "Press Enter to go to Game 2", new Vector2(100, 150), Color.White);
+            SpriteBatch.DrawString(TitleScreenMenuItemFont, "Press Escape to return to Title", new Vector2(100, 200), Color.White);
+            SpriteBatch.DrawString(TitleScreenMenuItemFont, $"Left mouse button clicked on X: {_lastLeftClickPosition?.X} Y: {_lastLeftClickPosition?.Y}",
                 new Vector2(100, 250), Color.White);
-            SpriteBatch.DrawString(Font, $"Right mouse button clicked on X: {_lastRightClickPosition?.X} Y: {_lastRightClickPosition?.Y}",
+            SpriteBatch.DrawString(TitleScreenMenuItemFont, $"Right mouse button clicked on X: {_lastRightClickPosition?.X} Y: {_lastRightClickPosition?.Y}",
                 new Vector2(100, 300), Color.White);
-            SpriteBatch.DrawString(Font, $"Image Clicked: {_isImageClicked}", new Vector2(100, 350), Color.Yellow);
+            SpriteBatch.DrawString(TitleScreenMenuItemFont, $"Image Clicked: {_isImageClicked}", new Vector2(100, 350), Color.Yellow);
 
 
             SpriteBatch.Draw(_sampleImage, _imagePosition, Color.White);
