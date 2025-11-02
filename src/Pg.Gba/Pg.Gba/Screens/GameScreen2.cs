@@ -19,8 +19,8 @@ namespace Pg.Gba.Screens
 
         public override void Draw()
         {
-            SpriteBatch.DrawString(Font, "GAME 2 SCREEN", new Vector2(100, 100), Color.White);
-            SpriteBatch.DrawString(Font, "Press Escape to return to Title", new Vector2(100, 150), Color.White);
+            SpriteBatch.DrawString(TitleScreenTitleFont, "GAME 2 SCREEN", new Vector2(100, 100), Color.White);
+            SpriteBatch.DrawString(TitleScreenMenuItemFont, "Press Escape to return to Title", new Vector2(100, 150), Color.White);
         }
     }
 }

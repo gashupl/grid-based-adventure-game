@@ -39,9 +39,9 @@ namespace Pg.Gba.Screens
 
             var x = 50;
             var y = Game._graphics.PreferredBackBufferHeight / 2 + 250;
-            SpriteBatch.DrawString(Font, "ADVENTURE GAME", new Vector2(x, y), Color.White);
-            SpriteBatch.DrawString(Font, "PRESS ENTER TO PLAY", new Vector2(x, y + 50), Color.White);
-            SpriteBatch.DrawString(Font, "PRESS ESCAPE TO EXIT", new Vector2(x, y + 100), Color.White);
+            SpriteBatch.DrawString(TitleScreenTitleFont, "ADVENTURE GAME", new Vector2(x, y), Color.White);
+            SpriteBatch.DrawString(TitleScreenMenuItemFont, "PRESS ENTER TO PLAY", new Vector2(x, y + 50), Color.White);
+            SpriteBatch.DrawString(TitleScreenMenuItemFont, "PRESS ESCAPE TO EXIT", new Vector2(x, y + 100), Color.White);
         }
     }
 }
