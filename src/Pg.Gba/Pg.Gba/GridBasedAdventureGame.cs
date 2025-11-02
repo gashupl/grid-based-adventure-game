@@ -17,7 +17,8 @@ namespace Pg.Gba
         private GameState _currentState;
         private KeyboardState _previousKeyboardState; 
         private MouseState _previousMouseState;
-        internal SpriteFont _font;
+        internal SpriteFont _titleScreenTitleFont;
+        internal SpriteFont _titleScreenMenuItemFont;
 
         private static int GameResolutionWidth = 1600; 
         private static int GameResolutionHeigth = 900;
@@ -76,7 +77,8 @@ namespace Pg.Gba
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _font = Content.Load<SpriteFont>("Font1");
+            _titleScreenTitleFont = Content.Load<SpriteFont>("fonts/TitleScreenTitleFont");
+            _titleScreenMenuItemFont = Content.Load<SpriteFont>("fonts/TitleScreenMenuItemsFont");
 
         }
 
