@@ -1,7 +1,8 @@
-﻿using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework;
-using Pg.Gba.State;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Pg.Gba.Localization;
+using Pg.Gba.State;
 
 namespace Pg.Gba.Screens
 {
@@ -39,9 +40,9 @@ namespace Pg.Gba.Screens
 
             var x = 50;
             var y = Game._graphics.PreferredBackBufferHeight / 2 + 250;
-            SpriteBatch.DrawString(TitleScreenTitleFont, "ADVENTURE GAME", new Vector2(x, y), Color.White);
-            SpriteBatch.DrawString(TitleScreenMenuItemFont, "PRESS ENTER TO PLAY", new Vector2(x, y + 50), Color.White);
-            SpriteBatch.DrawString(TitleScreenMenuItemFont, "PRESS ESCAPE TO EXIT", new Vector2(x, y + 100), Color.White);
+            SpriteBatch.DrawString(TitleScreenTitleFont, LocalizationManager.GetString("TitleScreen_Title"), new Vector2(x, y), Color.White);
+            SpriteBatch.DrawString(TitleScreenMenuItemFont, LocalizationManager.GetString("TitleScreen_Play"), new Vector2(x, y + 50), Color.White);
+            SpriteBatch.DrawString(TitleScreenMenuItemFont, LocalizationManager.GetString("TitleScreen_Exit"), new Vector2(x, y + 100), Color.White);
         }
     }
 }
