@@ -14,7 +14,6 @@ namespace Pg.Gba
 
         internal GraphicsDeviceManager _graphics;
         internal SpriteBatch _spriteBatch;
-        private State.GameScreen _currentScreen;
         private KeyboardState _previousKeyboardState; 
         private MouseState _previousMouseState;
         internal SpriteFont _titleScreenTitleFont;
@@ -38,7 +37,7 @@ namespace Pg.Gba
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            _currentScreen = State.GameScreen.Title;
+            GameState.CurrentScreen = State.GameScreen.Title;
         }
 
         protected override void Initialize()
@@ -84,7 +83,7 @@ namespace Pg.Gba
 
         public void ChangeState(State.GameScreen newState)
         {
-            _currentScreen = newState;
+            GameState.CurrentScreen = newState;
         }
 
         protected override void Update(GameTime gameTime)
@@ -93,7 +92,7 @@ namespace Pg.Gba
             var currentMouseState = Mouse.GetState();
 
             // Get the current screen and update it
-            _screens[_currentScreen].Update(gameTime, 
+            _screens[GameState.CurrentScreen].Update(gameTime, 
                 new InputDevicesState(currentKeyboardState, _previousKeyboardState, currentMouseState, _previousMouseState));
 
             _previousKeyboardState = currentKeyboardState;
@@ -108,7 +107,7 @@ namespace Pg.Gba
             _spriteBatch.Begin();
 
             // Draw the current screen
-            _screens[_currentScreen].Draw();
+            _screens[GameState.CurrentScreen].Draw();
 
             _spriteBatch.End();
 
@@ -117,7 +116,7 @@ namespace Pg.Gba
 
         private Color GetBackgroundColor()
         {
-            switch (_currentScreen)
+            switch (GameState.CurrentScreen)
             {
                 case State.GameScreen.Title:
                     return Color.CornflowerBlue;
