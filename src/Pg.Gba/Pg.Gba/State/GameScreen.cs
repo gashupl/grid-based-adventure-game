@@ -1,6 +1,6 @@
 ﻿namespace Pg.Gba.State
 {
-    public enum GameState
+    public enum GameScreen
     {
         Title,
         Game1,

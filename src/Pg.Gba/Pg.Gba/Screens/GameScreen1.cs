@@ -31,11 +31,11 @@ namespace Pg.Gba.Screens
         {
             if (IsKeyPressed(Keys.Enter, inputDeviceState.CurrentKeyState, inputDeviceState.PreviousKeyState))
             {
-                ChangeScreen(GameState.Game2);
+                ChangeScreen(State.GameScreen.Game2);
             }
             else if (IsKeyPressed(Keys.Escape, inputDeviceState.CurrentKeyState, inputDeviceState.PreviousKeyState))
             {
-                ChangeScreen(GameState.Title);
+                ChangeScreen(State.GameScreen.Title);
             }
 
             base.Update(gameTime, inputDeviceState);
