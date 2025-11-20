@@ -8,7 +8,7 @@ namespace Pg.Gba.Screens
 {
     internal class TitleScreen : GameScreen
     {
-        private Texture2D _backgroundTexture;
+        private readonly Texture2D _backgroundTexture;
 
         public TitleScreen(GridBasedAdventureGame game) : base(game) 
         {
