@@ -8,7 +8,7 @@ using Pg.Gba.Utils;
 
 namespace Pg.Gba.Screens
 {
-    internal class GameScreen1 : GameScreen
+    internal class GameScreen1 : GameScreenBase
     {
 
         private Texture2D _sampleImage;

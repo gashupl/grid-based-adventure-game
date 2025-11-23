@@ -6,7 +6,7 @@ using Pg.Gba.State;
 
 namespace Pg.Gba.Screens
 {
-    internal class TitleScreen : GameScreen
+    internal class TitleScreen : GameScreenBase
     {
         private readonly Texture2D _backgroundTexture;
 

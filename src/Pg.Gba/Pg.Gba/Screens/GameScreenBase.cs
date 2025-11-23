@@ -2,13 +2,12 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Pg.Gba.State;
-using Pg.Gba.Utils;
 
 
 namespace Pg.Gba.Screens
 {
     // Base class for all game screens
-    internal abstract class GameScreen
+    internal abstract class GameScreenBase
     {
         protected GridBasedAdventureGame Game { get; private set; }
         protected SpriteBatch SpriteBatch => Game._spriteBatch;
@@ -17,7 +16,7 @@ namespace Pg.Gba.Screens
         protected bool EnableMouseInput;
         
 
-        protected GameScreen(GridBasedAdventureGame game, bool enableMouseInput = false)
+        protected GameScreenBase(GridBasedAdventureGame game, bool enableMouseInput = false)
         {
             Game = game;
             EnableMouseInput = enableMouseInput;

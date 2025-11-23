@@ -23,7 +23,7 @@ namespace Pg.Gba
         private static int GameResolutionHeigth = 900;
 
         // Dictionary to store all game screens
-        private Dictionary<State.GameScreen, Screens.GameScreen> _screens;
+        private Dictionary<State.GameScreen, Screens.GameScreenBase> _screens;
 
         public GridBasedAdventureGame()
         {
@@ -63,7 +63,7 @@ namespace Pg.Gba
             _previousMouseState = Mouse.GetState();
 
             // Create all screens
-            _screens = new Dictionary<State.GameScreen, Screens.GameScreen>
+            _screens = new Dictionary<State.GameScreen, Screens.GameScreenBase>
             {
                 { State.GameScreen.Title, new TitleScreen(this) },
                 { State.GameScreen.Game1, new GameScreen1(this, true) },

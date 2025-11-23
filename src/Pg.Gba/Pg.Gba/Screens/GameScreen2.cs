@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Pg.Gba.Screens
 {
-    internal class GameScreen2 : GameScreen
+    internal class GameScreen2 : GameScreenBase
     {
         public GameScreen2(GridBasedAdventureGame game) : base(game) { }
 
