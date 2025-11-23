@@ -4,11 +4,11 @@ namespace Pg.Gba.Gameplay
 {
     internal class Item
     {
-        public string Name { get; set; }
+        internal string Name { get; set; }
 
-        public string CodeName { get; set; }
-        public string Description { get; set; }
+        internal string CodeName { get; set; }
+        internal string Description { get; set; }
 
-        private Texture2D Image { get; set; }
+        internal Texture2D Image { get; set; }
     }
 }

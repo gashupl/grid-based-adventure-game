@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Pg.Gba.Gameplay;
 using Pg.Gba.State;
+using System.Collections.Generic;
 
 
 namespace Pg.Gba.Screens
@@ -14,12 +16,14 @@ namespace Pg.Gba.Screens
         protected SpriteFont TitleScreenTitleFont => Game._titleScreenTitleFont;
         protected SpriteFont TitleScreenMenuItemFont => Game._titleScreenMenuItemFont; 
         protected bool EnableMouseInput;
+        protected List<ScreenItem> ScreenItems; 
         
 
         protected GameScreenBase(GridBasedAdventureGame game, bool enableMouseInput = false)
         {
             Game = game;
             EnableMouseInput = enableMouseInput;
+            ScreenItems = new List<ScreenItem>(); 
         }
 
         public virtual void Update(GameTime gameTime, InputDevicesState inputDeviceState)
