@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Pg.Gba.State;
 using Microsoft.Xna.Framework.Graphics;
 using Pg.Gba.Gameplay;
-using System.Collections.Generic;
 using Pg.Gba.Gameplay.Items;
 
 namespace Pg.Gba.Screens
@@ -44,7 +43,7 @@ namespace Pg.Gba.Screens
         {
             if (IsKeyPressed(Keys.Escape, inputDeviceState.CurrentKeyState, inputDeviceState.PreviousKeyState))
             {
-                ChangeScreen(State.GameScreen.Title);
+                ChangeScreen(GameScreen.Title);
             }
         }
 
