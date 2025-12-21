@@ -7,14 +7,15 @@ using Pg.Gba.Gameplay.Items;
 
 namespace Pg.Gba.Screens
 {
-    internal class GameScreen2 : GameScreenBase
+    internal class StartLocationScreen : GameplayScreenBase
     {
-        public GameScreen2(GridBasedAdventureGame game) : base(game) 
+        public StartLocationScreen(GridBasedAdventureGame game) : base(game) 
         {
-            LoadContent(); 
+            SetBackground(); 
+            SetSceneItems(); 
         }
 
-        void LoadContent()
+        protected override void SetSceneItems()
         {
             this.ScreenItems =
             [
@@ -22,21 +23,25 @@ namespace Pg.Gba.Screens
                 {
                     Item = new KeyItem(), 
                     Position = new Vector2(200, 200),
-                    IsVisible = true
-                },
-                new ScreenItem
-                {
-                    Item = new CalendarItem(), 
-                    Position = new Vector2(300, 300),
                     IsVisible = false
                 },
                 new ScreenItem
                 {
+                    Item = new CupItem(), 
+                    Position = new Vector2(800, 535),
+                    IsVisible = true
+                },
+                new ScreenItem
+                {
                     Item = new CalendarItem(),
-                    Position = new Vector2(500, 500),
+                    Position = new Vector2(550, 250),
                     IsVisible = true
                 }
             ];
+        }
+        protected override void SetBackground()
+        {
+            _backgroundTexture = Game.Content.Load<Texture2D>("img/backgrounds/startlocationbackground");
         }
 
         public override void Update(GameTime gameTime, InputDevicesState inputDeviceState)
@@ -49,21 +54,10 @@ namespace Pg.Gba.Screens
 
         public override void Draw()
         {
-            SpriteBatch.DrawString(TitleScreenTitleFont, "POCKET DEMO SCREEN", new Vector2(100, 100), Color.White);
-            SpriteBatch.DrawString(TitleScreenMenuItemFont, "Press Escape to return to Title", new Vector2(100, 150), Color.White);
+            DrawScene(); 
 
-            foreach(var item in this.ScreenItems) {                 
-                if(item.IsVisible)
-                {
-                    item.LoadContent(Game.Content); 
-                    SpriteBatch.Draw(
-                        
-                        item.Image, 
-                        item.Position,
-                        Color.White
-                    );
-                }
-            }
+            SpriteBatch.DrawString(TitleScreenTitleFont, "POCKET DEMO SCREEN", new Vector2(30, 800), Color.White);
+            SpriteBatch.DrawString(TitleScreenMenuItemFont, "Press Escape to return to Title", new Vector2(30, 850), Color.White);
         }
     }
 }

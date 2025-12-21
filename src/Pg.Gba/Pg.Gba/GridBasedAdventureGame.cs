@@ -67,7 +67,7 @@ namespace Pg.Gba
             {
                 { State.GameScreen.Title, new TitleScreen(this) },
                 { State.GameScreen.Game1, new GameScreen1(this, true) },
-                { State.GameScreen.Game2, new GameScreen2(this) }
+                { State.GameScreen.Game2, new StartLocationScreen(this) }
             };
 
             base.Initialize();
@@ -121,9 +121,9 @@ namespace Pg.Gba
                 case State.GameScreen.Title:
                     return Color.CornflowerBlue;
                 case State.GameScreen.Game1:
-                    return Color.Black; 
+                    return Color.Green; 
                 case State.GameScreen.Game2:
-                    return Color.Crimson;
+                    return Color.Black;
                 default:
                     return Color.Yellow;
             }
