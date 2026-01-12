@@ -19,8 +19,8 @@ namespace Pg.Gba.Screens
         // Add this variable to store the mouse position
         private Vector2? _lastLeftClickPosition = null;
         private Vector2? _lastRightClickPosition = null;
-
-
+        private PopupMenu _popupMenu;
+        private Texture2D _buttonTexture;
 
         public GameScreen1(GridBasedAdventureGame game, bool enableMouseInput) : base(game, enableMouseInput)
         {
@@ -38,6 +38,8 @@ namespace Pg.Gba.Screens
                 ChangeScreen(State.GameScreen.Title);
             }
 
+            _popupMenu?.Update(inputDeviceState.CurrentMouseState, inputDeviceState.PreviousMouseState);
+
             base.Update(gameTime, inputDeviceState);
         }
 
@@ -54,12 +56,18 @@ namespace Pg.Gba.Screens
 
 
             SpriteBatch.Draw(_sampleImage, _imagePosition, Color.White);
+
+            _popupMenu?.Draw(SpriteBatch);
         }
 
         private void LoadContent()
         {
             // Load the image
             _sampleImage = this.Game.Content.Load<Texture2D>("img/sample01");
+
+            // Create a simple 1x1 white texture for buttons
+            _buttonTexture = new Texture2D(Game.GraphicsDevice, 1, 1);
+            _buttonTexture.SetData(new[] { Color.White });
 
             // Calculate random position ensuring the image stays within bounds
             int maxX = this.Game.GraphicsDevice.Viewport.Width - 32;
@@ -78,6 +86,19 @@ namespace Pg.Gba.Screens
         {
             // Store mouse position on right click
             _lastRightClickPosition = new Vector2(currentMouseState.X, currentMouseState.Y);
+            // Initialize popup menu
+            if(ImageHelper.IsImageClicked(_sampleImage, _imagePosition, currentMouseState))
+            {
+                _popupMenu = new PopupMenu(_buttonTexture, TitleScreenMenuItemFont);
+                _popupMenu.AddButton("Look at", () => { });
+                _popupMenu.AddButton("Take", () => { });
+                _popupMenu.Show(_lastRightClickPosition.Value);
+            }
+            else
+            {
+                _popupMenu?.Hide();
+            }
+
         }
     }
 }
