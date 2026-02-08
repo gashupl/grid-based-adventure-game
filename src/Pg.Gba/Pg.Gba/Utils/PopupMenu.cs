@@ -9,32 +9,17 @@ namespace Pg.Gba.Utils
     internal class PopupMenu
     {
         private Vector2 _position;
-        private List<PopupButton> _buttons;
+        private List<PopupMenuAction> _actions;
         private bool _isVisible;
-        private readonly Texture2D _buttonTexture;
-        private readonly SpriteFont _font;
 
-        private const int ButtonWidth = 120;
-        private const int ButtonHeight = 30;
-        private const int ButtonPadding = 5;
+        private const int ImagePadding = 5;
 
         public bool IsVisible => _isVisible;
 
-        public PopupMenu(Texture2D buttonTexture, SpriteFont font)
+        public PopupMenu(List<PopupMenuAction> actions)
         {
-            _buttonTexture = buttonTexture;
-            _font = font;
-            _buttons = new List<PopupButton>();
+            _actions = actions;
             _isVisible = false;
-        }
-
-        public void AddButton(string label, Action onClicked)
-        {
-            _buttons.Add(new PopupButton
-            {
-                Label = label,
-                OnClicked = onClicked
-            });
         }
 
         public void Show(Vector2 position)
@@ -57,12 +42,12 @@ namespace Pg.Gba.Utils
             {
                 Vector2 mousePosition = new Vector2(currentMouseState.X, currentMouseState.Y);
 
-                for (int i = 0; i < _buttons.Count; i++)
+                for (int i = 0; i < _actions.Count; i++)
                 {
-                    Rectangle buttonRect = GetButtonRect(i);
+                    Rectangle buttonRect = GetImageRect(i);
                     if (buttonRect.Contains(mousePosition.ToPoint()))
                     {
-                        _buttons[i].OnClicked?.Invoke();
+                        OnActionSelected(_actions[i]);
                         Hide();
                         return;
                     }
@@ -78,31 +63,23 @@ namespace Pg.Gba.Utils
             if (!_isVisible)
                 return;
 
-            for (int i = 0; i < _buttons.Count; i++)
+            for (int i = 0; i < _actions.Count; i++)
             {
-                Rectangle buttonRect = GetButtonRect(i);
-                spriteBatch.Draw(_buttonTexture, buttonRect, Color.ForestGreen);
-
-                Vector2 textSize = _font.MeasureString(_buttons[i].Label);
-                Vector2 textPosition = new Vector2(
-                    buttonRect.X + (buttonRect.Width - textSize.X) / 2,
-                    buttonRect.Y + (buttonRect.Height - textSize.Y) / 2
-                );
-
-                spriteBatch.DrawString(_font, _buttons[i].Label, textPosition, Color.White);
+                Rectangle imageRect = GetImageRect(i);
+                spriteBatch.Draw(_actions[i].Image, imageRect, Color.White);
             }
         }
 
-        private Rectangle GetButtonRect(int buttonIndex)
+        private Rectangle GetImageRect(int actionIndex)
         {
-            int y = (int)_position.Y + (buttonIndex * (ButtonHeight + ButtonPadding));
-            return new Rectangle((int)_position.X, y, ButtonWidth, ButtonHeight);
+            int x = (int)_position.X + (actionIndex * (32 + ImagePadding));
+            return new Rectangle(x, (int)_position.Y, 32, 32);
         }
 
-        private class PopupButton
+        private void OnActionSelected(PopupMenuAction action)
         {
-            internal string Label { get; set; }
-            internal Action OnClicked { get; set; }
+            // Handle action based on type
+            // This can be extended with callback functionality if needed
         }
     }
 }

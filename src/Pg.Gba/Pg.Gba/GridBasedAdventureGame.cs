@@ -67,7 +67,7 @@ namespace Pg.Gba
             {
                 { State.GameScreen.Title, new TitleScreen(this) },
                 { State.GameScreen.Game1, new GameScreen1(this, true) },
-                { State.GameScreen.Game2, new StartLocationScreen(this) }
+                { State.GameScreen.Game2, new StartLocationScreen(this, true) }
             };
 
             base.Initialize();

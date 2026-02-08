@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Pg.Gba.Gameplay;
+using Pg.Gba.Utils;
 using System.Collections.Generic;
 
 namespace Pg.Gba.Screens
@@ -8,12 +9,13 @@ namespace Pg.Gba.Screens
     internal abstract class GameplayScreenBase : GameScreenBase
     {
         protected List<ScreenItem> ScreenItems;
+        protected static List<PopupMenuAction> PopupMenuActions;
         protected Texture2D _backgroundTexture;
 
-        protected GameplayScreenBase(GridBasedAdventureGame game) : base(game)
+        protected GameplayScreenBase(GridBasedAdventureGame game, bool enableMouseInput) : base(game, enableMouseInput)
         {
             ScreenItems = new List<ScreenItem>();
-            
+            LoadPopupMenuActions(); 
         }
 
         protected abstract void SetSceneItems();
@@ -56,6 +58,26 @@ namespace Pg.Gba.Screens
                         Color.White
                     );
                 }
+            }
+        }
+
+        private void LoadPopupMenuActions()
+        {
+            if(PopupMenuActions == null) 
+            { 
+                PopupMenuActions = new List<PopupMenuAction>
+                {
+                    new PopupMenuAction(
+                
+                        PopupMenuActionType.Examine, 
+                        Game.Content.Load<Texture2D>("img/menuitems/examine_action")
+                    ),
+                    new PopupMenuAction(
+
+                        PopupMenuActionType.Take,
+                        Game.Content.Load<Texture2D>("img/menuitems/take_action")
+                    )
+                };
             }
         }
     }

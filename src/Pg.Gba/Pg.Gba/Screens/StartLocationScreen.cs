@@ -9,7 +9,7 @@ namespace Pg.Gba.Screens
 {
     internal class StartLocationScreen : GameplayScreenBase
     {
-        public StartLocationScreen(GridBasedAdventureGame game) : base(game) 
+        public StartLocationScreen(GridBasedAdventureGame game, bool enableMouseInput) : base(game, enableMouseInput) 
         {
             SetBackground(); 
             SetSceneItems(); 

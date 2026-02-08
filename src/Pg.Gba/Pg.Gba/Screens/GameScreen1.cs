@@ -8,7 +8,7 @@ using Pg.Gba.Utils;
 
 namespace Pg.Gba.Screens
 {
-    internal class GameScreen1 : GameScreenBase
+    internal class GameScreen1 : GameplayScreenBase
     {
 
         private Texture2D _sampleImage;
@@ -65,10 +65,6 @@ namespace Pg.Gba.Screens
             // Load the image
             _sampleImage = this.Game.Content.Load<Texture2D>("img/sample01");
 
-            // Create a simple 1x1 white texture for buttons
-            _buttonTexture = new Texture2D(Game.GraphicsDevice, 1, 1);
-            _buttonTexture.SetData(new[] { Color.White });
-
             // Calculate random position ensuring the image stays within bounds
             int maxX = this.Game.GraphicsDevice.Viewport.Width - 32;
             int maxY = this.Game.GraphicsDevice.Viewport.Height - 32;
@@ -89,9 +85,7 @@ namespace Pg.Gba.Screens
             // Initialize popup menu
             if(ImageHelper.IsImageClicked(_sampleImage, _imagePosition, currentMouseState))
             {
-                _popupMenu = new PopupMenu(_buttonTexture, TitleScreenMenuItemFont);
-                _popupMenu.AddButton("Look at", () => { });
-                _popupMenu.AddButton("Take", () => { });
+                _popupMenu = new PopupMenu(PopupMenuActions); 
                 _popupMenu.Show(_lastRightClickPosition.Value);
             }
             else
@@ -99,6 +93,16 @@ namespace Pg.Gba.Screens
                 _popupMenu?.Hide();
             }
 
+        }
+
+        protected override void SetSceneItems()
+        {
+            ; 
+        }
+
+        protected override void SetBackground()
+        {
+            ; 
         }
     }
 }
