@@ -80,6 +80,7 @@ namespace Pg.Gba.Utils
         {
             // Handle action based on type
             // This can be extended with callback functionality if needed
+            Console.WriteLine($"Action selected: {action.ActionType}");
         }
     }
 }

@@ -8,7 +8,7 @@ using Pg.Gba.Utils;
 
 namespace Pg.Gba.Screens
 {
-    internal class GameScreen1 : GameplayScreenBase
+    internal class PocScreen : GameplayScreenBase
     {
 
         private Texture2D _sampleImage;
@@ -19,10 +19,9 @@ namespace Pg.Gba.Screens
         // Add this variable to store the mouse position
         private Vector2? _lastLeftClickPosition = null;
         private Vector2? _lastRightClickPosition = null;
-        private PopupMenu _popupMenu;
-        private Texture2D _buttonTexture;
+        
 
-        public GameScreen1(GridBasedAdventureGame game, bool enableMouseInput) : base(game, enableMouseInput)
+        public PocScreen(GridBasedAdventureGame game, bool enableMouseInput) : base(game, enableMouseInput)
         {
             LoadContent();
         }
@@ -31,14 +30,14 @@ namespace Pg.Gba.Screens
         {
             if (IsKeyPressed(Keys.Enter, inputDeviceState.CurrentKeyState, inputDeviceState.PreviousKeyState))
             {
-                ChangeScreen(State.GameScreen.Game2);
+                ChangeScreen(GameScreen.StartLocation);
             }
             else if (IsKeyPressed(Keys.Escape, inputDeviceState.CurrentKeyState, inputDeviceState.PreviousKeyState))
             {
-                ChangeScreen(State.GameScreen.Title);
+                ChangeScreen(GameScreen.Title);
             }
 
-            _popupMenu?.Update(inputDeviceState.CurrentMouseState, inputDeviceState.PreviousMouseState);
+            PopupMenu?.Update(inputDeviceState.CurrentMouseState, inputDeviceState.PreviousMouseState);
 
             base.Update(gameTime, inputDeviceState);
         }
@@ -57,7 +56,7 @@ namespace Pg.Gba.Screens
 
             SpriteBatch.Draw(_sampleImage, _imagePosition, Color.White);
 
-            _popupMenu?.Draw(SpriteBatch);
+            PopupMenu?.Draw(SpriteBatch);
         }
 
         private void LoadContent()
@@ -85,12 +84,12 @@ namespace Pg.Gba.Screens
             // Initialize popup menu
             if(ImageHelper.IsImageClicked(_sampleImage, _imagePosition, currentMouseState))
             {
-                _popupMenu = new PopupMenu(PopupMenuActions); 
-                _popupMenu.Show(_lastRightClickPosition.Value);
+                PopupMenu = new PopupMenu(PopupMenuActions); 
+                PopupMenu.Show(_lastRightClickPosition.Value);
             }
             else
             {
-                _popupMenu?.Hide();
+                PopupMenu?.Hide();
             }
 
         }

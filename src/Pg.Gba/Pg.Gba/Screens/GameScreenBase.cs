@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Pg.Gba.Gameplay;
 using Pg.Gba.State;
+using Pg.Gba.Utils;
 using System.Collections.Generic;
 
 
@@ -16,8 +17,10 @@ namespace Pg.Gba.Screens
         protected SpriteFont TitleScreenTitleFont => Game._titleScreenTitleFont;
         protected SpriteFont TitleScreenMenuItemFont => Game._titleScreenMenuItemFont; 
         protected bool EnableMouseInput;
-        
-        
+
+        protected PopupMenu PopupMenu;
+
+
 
         protected GameScreenBase(GridBasedAdventureGame game, bool enableMouseInput = false)
         {

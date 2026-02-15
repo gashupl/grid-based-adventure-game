@@ -63,11 +63,11 @@ namespace Pg.Gba
             _previousMouseState = Mouse.GetState();
 
             // Create all screens
-            _screens = new Dictionary<State.GameScreen, Screens.GameScreenBase>
+            _screens = new Dictionary<GameScreen, GameScreenBase>
             {
-                { State.GameScreen.Title, new TitleScreen(this) },
-                { State.GameScreen.Game1, new GameScreen1(this, true) },
-                { State.GameScreen.Game2, new StartLocationScreen(this, true) }
+                { GameScreen.Title, new TitleScreen(this) },
+                { GameScreen.Poc, new PocScreen(this, true) },
+                { GameScreen.StartLocation, new StartLocationScreen(this, true) }
             };
 
             base.Initialize();
@@ -120,9 +120,9 @@ namespace Pg.Gba
             {
                 case State.GameScreen.Title:
                     return Color.CornflowerBlue;
-                case State.GameScreen.Game1:
+                case State.GameScreen.Poc:
                     return Color.Green; 
-                case State.GameScreen.Game2:
+                case State.GameScreen.StartLocation:
                     return Color.Black;
                 default:
                     return Color.Yellow;

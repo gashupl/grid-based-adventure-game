@@ -3,7 +3,7 @@
     public enum GameScreen
     {
         Title,
-        Game1,
-        Game2
+        Poc,
+        StartLocation
     }
 }
