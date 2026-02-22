@@ -3,9 +3,18 @@ using System.Collections.Generic;
 
 namespace Pg.Gba.State
 {
-    internal static class GameState
+    internal class GameState
     {
-        internal static GameScreen CurrentScreen { get; set; }
-        internal static List<Item> Pocket { get; set;  }
+        private static readonly GameState _instance = new GameState();
+
+        public static GameState Instance => _instance;
+
+        public GameScreen CurrentScreen { get; set; }
+        public List<InventoryItem> InventoryItems { get; set; }
+
+        private GameState()
+        {
+            InventoryItems = new List<InventoryItem>();
+        }
     }
 }
