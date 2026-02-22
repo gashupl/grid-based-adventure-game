@@ -76,8 +76,7 @@ namespace Pg.Gba.Screens
             {
                 if (screenItem.IsVisible && ImageHelper.IsImageClicked(screenItem.Image, screenItem.Position, currentMouseState))
                 {
-                    //TODO: Add code so menu options are based on the item clicked
-                    PopupMenu = new PopupMenu(PopupMenuActions);
+                    PopupMenu = screenItem.CreatePopupMenu(PopupMenuActions);
                     PopupMenu.Show(rightClickPosition);
                     break; 
                 }

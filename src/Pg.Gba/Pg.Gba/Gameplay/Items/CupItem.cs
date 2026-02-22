@@ -1,8 +1,5 @@
-﻿using System;
+﻿using Pg.Gba.Utils;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pg.Gba.Gameplay.Items
 {
@@ -14,6 +11,11 @@ namespace Pg.Gba.Gameplay.Items
             this.Label = "Cup";
             this.Description = "A simple cup used for drinking.";
             this.ImagePath = "img/items/cup_item";
+            this.AvailableActions = new List<PopupMenuActionType>
+            {
+                PopupMenuActionType.Examine,
+                PopupMenuActionType.Take
+            };
         }
     }
 }

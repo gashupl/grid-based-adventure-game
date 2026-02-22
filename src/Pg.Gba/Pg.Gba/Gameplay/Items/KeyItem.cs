@@ -1,8 +1,5 @@
-﻿using System;
+﻿using Pg.Gba.Utils;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pg.Gba.Gameplay.Items
 {
@@ -13,7 +10,12 @@ namespace Pg.Gba.Gameplay.Items
             this.Name = "Key Item";
             this.Label = "Key";
             this.Description = "Strange looking key!"; 
-            this.ImagePath = "img/items/key_item"; 
+            this.ImagePath = "img/items/key_item";
+            this.AvailableActions = new List<PopupMenuActionType>
+            {
+                PopupMenuActionType.Examine, 
+                PopupMenuActionType.Take
+            };
         }
     }
 }

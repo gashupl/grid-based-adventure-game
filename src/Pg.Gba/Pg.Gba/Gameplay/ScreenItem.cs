@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Pg.Gba.Utils;
+using System.Collections.Generic;
 
 namespace Pg.Gba.Gameplay
 {
@@ -25,6 +27,19 @@ namespace Pg.Gba.Gameplay
                 System.Diagnostics.Debug.WriteLine($"Error loading item image at path: {this.Item.ImagePath}. Exception: {ex.Message}");
                 throw;
             }
+        }
+
+        internal PopupMenu CreatePopupMenu(List<PopupMenuAction> availableActions)
+        {
+            var itemActions = availableActions.FindAll(action => Item.AvailableActions.Contains(action.ActionType));
+            if (itemActions.Count > 0)
+            {
+                return new PopupMenu(itemActions);
+            }
+            else
+            {
+                return null;
+            }   
         }
     }
 }
