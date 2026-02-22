@@ -26,10 +26,23 @@ namespace Pg.Gba.Screens
         {     
             DrawBackground();
             DrawScreenItems();
-            DrawInventoryItems(); 
         }
 
+        protected void DrawInventoryItems()
+        {
+            int xPosition = 10;
+            const int yPosition = 10;
+            const int itemSpacing = 70;
 
+            foreach (var inventoryItem in GameState.Instance.InventoryItems)
+            {
+                if (inventoryItem?.Image != null)
+                {
+                    SpriteBatch.Draw(inventoryItem.Image, new Vector2(xPosition, yPosition), Color.White);
+                    xPosition += itemSpacing;
+                }
+            }
+        }
 
         protected abstract void SetBackground(); 
 
@@ -53,31 +66,15 @@ namespace Pg.Gba.Screens
         {
             foreach (var item in this.ScreenItems)
             {
+                item.LoadContent(Game.Content);
                 if (item.IsVisible)
-                {
-                    item.LoadContent(Game.Content);
+                {        
                     SpriteBatch.Draw(
 
                         item.Image,
                         item.Position,
                         Color.White
                     );
-                }
-            }
-        }
-
-        private void DrawInventoryItems()
-        {
-            int xPosition = 10;
-            const int yPosition = 10;
-            const int itemSpacing = 70;
-
-            foreach (var inventoryItem in GameState.Instance.InventoryItems)
-            {
-                if (inventoryItem?.Image != null)
-                {
-                    SpriteBatch.Draw(inventoryItem.Image, new Vector2(xPosition, yPosition), Color.White);
-                    xPosition += itemSpacing;
                 }
             }
         }

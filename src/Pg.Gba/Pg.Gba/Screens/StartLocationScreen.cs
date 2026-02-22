@@ -39,6 +39,7 @@ namespace Pg.Gba.Screens
                     IsVisible = true
                 }
             ];
+         
         }
         protected override void SetBackground()
         {
@@ -59,7 +60,18 @@ namespace Pg.Gba.Screens
 
         public override void Draw()
         {
-            DrawScene(); 
+
+
+            DrawScene();
+
+            //TODO: Test code for showing inventory items - to be removed when some real logic will be implemented to add items to inventory
+            if (GameState.Instance.InventoryItems.Count == 0)
+            {
+                GameState.Instance.InventoryItems.Add(new InventoryItem(this.ScreenItems[0]));
+                GameState.Instance.InventoryItems.Add(new InventoryItem(this.ScreenItems[1]));
+            }
+
+            DrawInventoryItems(); 
 
             SpriteBatch.DrawString(TitleScreenTitleFont, "POCKET DEMO SCREEN", new Vector2(30, 800), Color.White);
             SpriteBatch.DrawString(TitleScreenMenuItemFont, "Press Escape to return to Title", new Vector2(30, 850), Color.White);
