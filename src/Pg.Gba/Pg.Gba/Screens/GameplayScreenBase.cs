@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Pg.Gba.Gameplay;
+using Pg.Gba.State;
 using Pg.Gba.Utils;
+using System;
 using System.Collections.Generic;
 
 namespace Pg.Gba.Screens
@@ -24,7 +26,10 @@ namespace Pg.Gba.Screens
         {     
             DrawBackground();
             DrawScreenItems();
+            DrawInventoryItems(); 
         }
+
+
 
         protected abstract void SetBackground(); 
 
@@ -57,6 +62,22 @@ namespace Pg.Gba.Screens
                         item.Position,
                         Color.White
                     );
+                }
+            }
+        }
+
+        private void DrawInventoryItems()
+        {
+            int xPosition = 10;
+            const int yPosition = 10;
+            const int itemSpacing = 70;
+
+            foreach (var inventoryItem in GameState.Instance.InventoryItems)
+            {
+                if (inventoryItem?.Image != null)
+                {
+                    SpriteBatch.Draw(inventoryItem.Image, new Vector2(xPosition, yPosition), Color.White);
+                    xPosition += itemSpacing;
                 }
             }
         }
