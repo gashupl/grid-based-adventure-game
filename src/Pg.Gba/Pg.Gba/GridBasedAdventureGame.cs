@@ -23,7 +23,7 @@ namespace Pg.Gba
         private static int GameResolutionHeigth = 900;
 
         // Dictionary to store all game screens
-        private Dictionary<State.GameScreen, Screens.GameScreenBase> _screens;
+        private Dictionary<GameScreen, GameScreenBase> _screens;
 
         public GridBasedAdventureGame()
         {
