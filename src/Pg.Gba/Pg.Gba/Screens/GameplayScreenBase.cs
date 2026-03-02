@@ -58,7 +58,7 @@ namespace Pg.Gba.Screens
             }
             else
             {
-                //TODO: Add logging for missing background texture
+                //TODO (3): Add logging for missing background texture
             }
         }
 
@@ -89,6 +89,7 @@ namespace Pg.Gba.Screens
                 
                         PopupMenuActionType.Examine, 
                         Game.Content.Load<Texture2D>("img/menuitems/examine_action")
+                        //TODO (1): Implement show description text action for this. 
                     ),
                     new PopupMenuAction(
 
