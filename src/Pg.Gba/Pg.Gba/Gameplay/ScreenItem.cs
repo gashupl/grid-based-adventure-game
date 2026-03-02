@@ -34,7 +34,7 @@ namespace Pg.Gba.Gameplay
             var itemActions = availableActions.FindAll(action => Item.AvailableActions.Contains(action.ActionType));
             if (itemActions.Count > 0)
             {
-                return new PopupMenu(itemActions);
+                return new PopupMenu(itemActions, this);
             }
             else
             {

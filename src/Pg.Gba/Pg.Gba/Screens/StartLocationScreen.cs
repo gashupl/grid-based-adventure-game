@@ -60,15 +60,12 @@ namespace Pg.Gba.Screens
 
         public override void Draw()
         {
-
-
             DrawScene();
 
             //TODO: Test code for showing inventory items - to be removed when some real logic will be implemented to add items to inventory
             if (GameState.Instance.InventoryItems.Count == 0)
             {
                 GameState.Instance.InventoryItems.Add(new InventoryItem(this.ScreenItems[0]));
-                GameState.Instance.InventoryItems.Add(new InventoryItem(this.ScreenItems[1]));
             }
 
             DrawInventoryItems(); 

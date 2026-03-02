@@ -84,7 +84,7 @@ namespace Pg.Gba.Screens
             // Initialize popup menu
             if(ImageHelper.IsImageClicked(_sampleImage, _imagePosition, currentMouseState))
             {
-                PopupMenu = new PopupMenu(PopupMenuActions); 
+                PopupMenu = new PopupMenu(PopupMenuActions, null); 
                 PopupMenu.Show(_lastRightClickPosition.Value);
             }
             else

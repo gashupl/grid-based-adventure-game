@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Pg.Gba.Gameplay;
 
 namespace Pg.Gba.Utils
 {
@@ -11,14 +12,16 @@ namespace Pg.Gba.Utils
         private Vector2 _position;
         private List<PopupMenuAction> _actions;
         private bool _isVisible;
+        private ScreenItem _parentScreenItem; 
 
         private const int ImagePadding = 5;
 
         public bool IsVisible => _isVisible;
 
-        public PopupMenu(List<PopupMenuAction> actions)
+        public PopupMenu(List<PopupMenuAction> actions, ScreenItem parentScreenItem)
         {
             _actions = actions;
+            _parentScreenItem = parentScreenItem; 
             _isVisible = false;
         }
 
@@ -81,6 +84,10 @@ namespace Pg.Gba.Utils
             // Handle action based on type
             // This can be extended with callback functionality if needed
             Console.WriteLine($"Action selected: {action.ActionType}");
+            if(action.OnActionSelected != null)
+            {
+                action.OnActionSelected.Invoke(_parentScreenItem);
+            }
         }
     }
 }

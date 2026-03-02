@@ -11,7 +11,7 @@ namespace Pg.Gba.Screens
     internal abstract class GameplayScreenBase : GameScreenBase
     {
         protected List<ScreenItem> ScreenItems;
-        protected static List<PopupMenuAction> PopupMenuActions;
+        protected List<PopupMenuAction> PopupMenuActions;
         protected Texture2D _backgroundTexture;
 
         protected GameplayScreenBase(GridBasedAdventureGame game, bool enableMouseInput) : base(game, enableMouseInput)
@@ -93,7 +93,15 @@ namespace Pg.Gba.Screens
                     new PopupMenuAction(
 
                         PopupMenuActionType.Take,
-                        Game.Content.Load<Texture2D>("img/menuitems/take_action")
+                        Game.Content.Load<Texture2D>("img/menuitems/take_action"), 
+                        (item) => 
+                        {
+                            if(item != null && item is ScreenItem)
+                            {
+                                GameState.Instance.InventoryItems.Add(new InventoryItem(item));
+                                this.ScreenItems.Remove(item);
+                            }
+                        }
                     )
                 };
             }

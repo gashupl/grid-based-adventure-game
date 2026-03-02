@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using Pg.Gba.Gameplay;
+using System;
 
 namespace Pg.Gba.Utils
 {
@@ -8,10 +10,13 @@ namespace Pg.Gba.Utils
 
         public Texture2D Image { get; set; }
 
-        public PopupMenuAction(PopupMenuActionType actionType, Texture2D image)
+        public Action<ScreenItem> OnActionSelected { get; set; }
+
+        public PopupMenuAction(PopupMenuActionType actionType, Texture2D image, Action<ScreenItem> onActionSelected = null)
         {
             ActionType = actionType;
-            Image = image; 
+            Image = image;
+            OnActionSelected = onActionSelected;
         }
     }
 
