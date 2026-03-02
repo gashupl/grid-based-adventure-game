@@ -8,7 +8,7 @@ using Pg.Gba.Utils;
 
 namespace Pg.Gba.Screens
 {
-    internal class GameScreen1 : GameScreen
+    internal class PocScreen : GameplayScreenBase
     {
 
         private Texture2D _sampleImage;
@@ -19,10 +19,9 @@ namespace Pg.Gba.Screens
         // Add this variable to store the mouse position
         private Vector2? _lastLeftClickPosition = null;
         private Vector2? _lastRightClickPosition = null;
+        
 
-
-
-        public GameScreen1(GridBasedAdventureGame game, bool enableMouseInput) : base(game, enableMouseInput)
+        public PocScreen(GridBasedAdventureGame game, bool enableMouseInput) : base(game, enableMouseInput)
         {
             LoadContent();
         }
@@ -31,12 +30,14 @@ namespace Pg.Gba.Screens
         {
             if (IsKeyPressed(Keys.Enter, inputDeviceState.CurrentKeyState, inputDeviceState.PreviousKeyState))
             {
-                ChangeScreen(GameState.Game2);
+                ChangeScreen(GameScreen.StartLocation);
             }
             else if (IsKeyPressed(Keys.Escape, inputDeviceState.CurrentKeyState, inputDeviceState.PreviousKeyState))
             {
-                ChangeScreen(GameState.Title);
+                ChangeScreen(GameScreen.Title);
             }
+
+            PopupMenu?.Update(inputDeviceState.CurrentMouseState, inputDeviceState.PreviousMouseState);
 
             base.Update(gameTime, inputDeviceState);
         }
@@ -54,6 +55,8 @@ namespace Pg.Gba.Screens
 
 
             SpriteBatch.Draw(_sampleImage, _imagePosition, Color.White);
+
+            PopupMenu?.Draw(SpriteBatch);
         }
 
         private void LoadContent()
@@ -78,6 +81,27 @@ namespace Pg.Gba.Screens
         {
             // Store mouse position on right click
             _lastRightClickPosition = new Vector2(currentMouseState.X, currentMouseState.Y);
+            // Initialize popup menu
+            if(ImageHelper.IsImageClicked(_sampleImage, _imagePosition, currentMouseState))
+            {
+                PopupMenu = new PopupMenu(PopupMenuActions, null); 
+                PopupMenu.Show(_lastRightClickPosition.Value);
+            }
+            else
+            {
+                PopupMenu?.Hide();
+            }
+
+        }
+
+        protected override void SetSceneItems()
+        {
+            ; 
+        }
+
+        protected override void SetBackground()
+        {
+            ; 
         }
     }
 }

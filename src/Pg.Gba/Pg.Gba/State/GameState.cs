@@ -1,9 +1,20 @@
-﻿namespace Pg.Gba.State
+﻿using Pg.Gba.Gameplay;
+using System.Collections.Generic;
+
+namespace Pg.Gba.State
 {
-    public enum GameState
+    internal class GameState
     {
-        Title,
-        Game1,
-        Game2
+        private static readonly GameState _instance = new GameState();
+
+        public static GameState Instance => _instance;
+
+        public GameScreen CurrentScreen { get; set; }
+        public List<InventoryItem> InventoryItems { get; set; }
+
+        private GameState()
+        {
+            InventoryItems = new List<InventoryItem>();
+        }
     }
 }

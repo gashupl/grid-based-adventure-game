@@ -6,7 +6,7 @@ using Pg.Gba.State;
 
 namespace Pg.Gba.Screens
 {
-    internal class TitleScreen : GameScreen
+    internal class TitleScreen : GameScreenBase
     {
         private readonly Texture2D _backgroundTexture;
 
@@ -21,7 +21,7 @@ namespace Pg.Gba.Screens
         {
             if (IsKeyPressed(Keys.Enter, inputDeviceState.CurrentKeyState, inputDeviceState.PreviousKeyState))
             {
-                ChangeScreen(GameState.Game1);
+                ChangeScreen(State.GameScreen.Poc);
             }
             else if (IsKeyPressed(Keys.Escape, inputDeviceState.CurrentKeyState, inputDeviceState.PreviousKeyState))
             {

@@ -1,23 +1,28 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Pg.Gba.Gameplay;
 using Pg.Gba.State;
 using Pg.Gba.Utils;
+using System.Collections.Generic;
 
 
 namespace Pg.Gba.Screens
 {
     // Base class for all game screens
-    internal abstract class GameScreen
+    internal abstract class GameScreenBase
     {
         protected GridBasedAdventureGame Game { get; private set; }
         protected SpriteBatch SpriteBatch => Game._spriteBatch;
         protected SpriteFont TitleScreenTitleFont => Game._titleScreenTitleFont;
         protected SpriteFont TitleScreenMenuItemFont => Game._titleScreenMenuItemFont; 
         protected bool EnableMouseInput;
-        
 
-        protected GameScreen(GridBasedAdventureGame game, bool enableMouseInput = false)
+        protected PopupMenu PopupMenu;
+
+
+
+        protected GameScreenBase(GridBasedAdventureGame game, bool enableMouseInput = false)
         {
             Game = game;
             EnableMouseInput = enableMouseInput;
@@ -38,7 +43,7 @@ namespace Pg.Gba.Screens
         }
         public abstract void Draw();
 
-        protected void ChangeScreen(GameState newState)
+        protected void ChangeScreen(State.GameScreen newState)
         {
             Game.ChangeState(newState);
         }

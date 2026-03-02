@@ -14,7 +14,6 @@ namespace Pg.Gba
 
         internal GraphicsDeviceManager _graphics;
         internal SpriteBatch _spriteBatch;
-        private GameState _currentState;
         private KeyboardState _previousKeyboardState; 
         private MouseState _previousMouseState;
         internal SpriteFont _titleScreenTitleFont;
@@ -24,7 +23,7 @@ namespace Pg.Gba
         private static int GameResolutionHeigth = 900;
 
         // Dictionary to store all game screens
-        private Dictionary<GameState, GameScreen> _screens;
+        private Dictionary<GameScreen, GameScreenBase> _screens;
 
         public GridBasedAdventureGame()
         {
@@ -38,7 +37,7 @@ namespace Pg.Gba
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            _currentState = GameState.Title;
+            GameState.Instance.CurrentScreen = State.GameScreen.Title;
         }
 
         protected override void Initialize()
@@ -64,11 +63,11 @@ namespace Pg.Gba
             _previousMouseState = Mouse.GetState();
 
             // Create all screens
-            _screens = new Dictionary<GameState, GameScreen>
+            _screens = new Dictionary<GameScreen, GameScreenBase>
             {
-                { GameState.Title, new TitleScreen(this) },
-                { GameState.Game1, new GameScreen1(this, true) },
-                { GameState.Game2, new GameScreen2(this) }
+                { GameScreen.Title, new TitleScreen(this) },
+                { GameScreen.Poc, new PocScreen(this, true) },
+                { GameScreen.StartLocation, new StartLocationScreen(this, true) }
             };
 
             base.Initialize();
@@ -82,9 +81,9 @@ namespace Pg.Gba
 
         }
 
-        public void ChangeState(GameState newState)
+        public void ChangeState(State.GameScreen newState)
         {
-            _currentState = newState;
+            GameState.Instance.CurrentScreen = newState;
         }
 
         protected override void Update(GameTime gameTime)
@@ -93,7 +92,7 @@ namespace Pg.Gba
             var currentMouseState = Mouse.GetState();
 
             // Get the current screen and update it
-            _screens[_currentState].Update(gameTime, 
+            _screens[GameState.Instance.CurrentScreen].Update(gameTime, 
                 new InputDevicesState(currentKeyboardState, _previousKeyboardState, currentMouseState, _previousMouseState));
 
             _previousKeyboardState = currentKeyboardState;
@@ -108,7 +107,7 @@ namespace Pg.Gba
             _spriteBatch.Begin();
 
             // Draw the current screen
-            _screens[_currentState].Draw();
+            _screens[GameState.Instance.CurrentScreen].Draw();
 
             _spriteBatch.End();
 
@@ -117,14 +116,14 @@ namespace Pg.Gba
 
         private Color GetBackgroundColor()
         {
-            switch (_currentState)
+            switch (GameState.Instance.CurrentScreen)
             {
-                case GameState.Title:
+                case State.GameScreen.Title:
                     return Color.CornflowerBlue;
-                case GameState.Game1:
-                    return Color.Black; 
-                case GameState.Game2:
-                    return Color.Crimson;
+                case State.GameScreen.Poc:
+                    return Color.Green; 
+                case State.GameScreen.StartLocation:
+                    return Color.Black;
                 default:
                     return Color.Yellow;
             }
