@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Pg.Gba.Gameplay;
 using Pg.Gba.State;
 using Pg.Gba.Utils;
-using System;
 using System.Collections.Generic;
 
 namespace Pg.Gba.Screens
