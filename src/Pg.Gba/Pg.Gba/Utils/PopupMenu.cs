@@ -36,10 +36,11 @@ namespace Pg.Gba.Utils
             _isVisible = false;
         }
 
-        public void Update(MouseState currentMouseState, MouseState previousMouseState)
+        //TODO (1) This method has too many responsiblitites and should be refactored to separate concerns (e.g. click detection vs action handling)
+        public bool Update(MouseState currentMouseState, MouseState previousMouseState)
         {
             if (!_isVisible)
-                return;
+                return false;
 
             if (currentMouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton == ButtonState.Released)
             {
@@ -52,13 +53,16 @@ namespace Pg.Gba.Utils
                     {
                         OnActionSelected(_actions[i]);
                         Hide();
-                        return;
+                        return true;
                     }
                 }
 
-                // Close popup if clicked outside
+                // Close popup if clicked outside (still consume the click)
                 Hide();
+                return true;
             }
+
+            return false;
         }
 
         public void Draw(SpriteBatch spriteBatch)

@@ -1,15 +1,17 @@
-﻿using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework;
-using Pg.Gba.State;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Pg.Gba.Gameplay;
 using Pg.Gba.Gameplay.Items;
+using Pg.Gba.State;
 using Pg.Gba.Utils;
+using System;
 
 namespace Pg.Gba.Screens
 {
     internal class StartLocationScreen : GameplayScreenBase
     {
+        private bool _popupConsumedClick; 
         public StartLocationScreen(GridBasedAdventureGame game, bool enableMouseInput) : base(game, enableMouseInput) 
         {
             SetBackground(); 
@@ -53,8 +55,10 @@ namespace Pg.Gba.Screens
                 ChangeScreen(GameScreen.Title);
             }
 
-            PopupMenu?.Update(inputDeviceState.CurrentMouseState, inputDeviceState.PreviousMouseState);
+            // Update popup menu first - it returns true if it consumed the click
+            _popupConsumedClick = PopupMenu?.Update(inputDeviceState.CurrentMouseState, inputDeviceState.PreviousMouseState) ?? false;
 
+            // Must call base.Update() so mouse click handlers are invoked
             base.Update(gameTime, inputDeviceState);
         }
 
@@ -74,6 +78,18 @@ namespace Pg.Gba.Screens
             SpriteBatch.DrawString(TitleScreenMenuItemFont, "Press Escape to return to Title", new Vector2(30, 850), Color.White);
 
             PopupMenu?.Draw(SpriteBatch);
+        }
+
+        protected override void HandleLeftMouseClick(MouseState currentMouseState, MouseState previousMouseState)
+        {
+            // Only process screen input if popup didn't consume the click
+            if (!_popupConsumedClick)
+            {
+                this.ScreenItems.ForEach(screenItem =>
+                {
+                    screenItem.IsDescriptionVisible = false;
+                }); 
+            }
         }
 
         protected override void HandleRightMouseClick(MouseState currentMouseState, MouseState previousMouseState)
