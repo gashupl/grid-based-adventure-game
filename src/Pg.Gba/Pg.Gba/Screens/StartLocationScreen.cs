@@ -11,7 +11,7 @@ namespace Pg.Gba.Screens
 {
     internal class StartLocationScreen : GameplayScreenBase
     {
-        private bool _popupConsumedClick; 
+        private bool _popupClickExecuted; 
         public StartLocationScreen(GridBasedAdventureGame game, bool enableMouseInput) : base(game, enableMouseInput) 
         {
             SetBackground(); 
@@ -56,7 +56,7 @@ namespace Pg.Gba.Screens
             }
 
             // Update popup menu first - it returns true if it consumed the click
-            _popupConsumedClick = PopupMenu?.Update(inputDeviceState.CurrentMouseState, inputDeviceState.PreviousMouseState) ?? false;
+            _popupClickExecuted = PopupMenu?.Update(inputDeviceState.CurrentMouseState, inputDeviceState.PreviousMouseState) ?? false;
 
             // Must call base.Update() so mouse click handlers are invoked
             base.Update(gameTime, inputDeviceState);
@@ -82,18 +82,13 @@ namespace Pg.Gba.Screens
 
         protected override void HandleLeftMouseClick(MouseState currentMouseState, MouseState previousMouseState)
         {
-            // Only process screen input if popup didn't consume the click
-            if (!_popupConsumedClick)
-            {
-                this.ScreenItems.ForEach(screenItem =>
-                {
-                    screenItem.IsDescriptionVisible = false;
-                }); 
-            }
+            TryHandlePopupClickExecuted(); 
         }
 
         protected override void HandleRightMouseClick(MouseState currentMouseState, MouseState previousMouseState)
         {
+            TryHandlePopupClickExecuted();
+
             // Store mouse position on right click
             var rightClickPosition = new Vector2(currentMouseState.X, currentMouseState.Y);
 
@@ -109,6 +104,18 @@ namespace Pg.Gba.Screens
                 {
                     PopupMenu?.Hide();
                 }
+            }
+        }
+
+        private void TryHandlePopupClickExecuted()
+        {
+            // Only process screen input if popup didn't consume the click
+            if (!_popupClickExecuted)
+            {
+                this.ScreenItems.ForEach(screenItem =>
+                {
+                    screenItem.IsDescriptionVisible = false;
+                });
             }
         }
     }
