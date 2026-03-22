@@ -80,7 +80,7 @@ namespace Pg.Gba.Screens
                     {
                         int imageWidth = item.Image?.Width ?? 32; // fallback width
                         var textPosition = new Vector2(item.Position.X + imageWidth + 10, item.Position.Y);
-                        SpriteBatch.DrawString(ScreenItemDescriptionFont, item.Item.Description, textPosition, Color.Yellow);
+                        SpriteBatch.DrawString(ScreenItemDescriptionFont, item.Item.Description, textPosition, Color.Blue);
                     }
                 }
             }
