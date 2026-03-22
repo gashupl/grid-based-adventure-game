@@ -5,7 +5,6 @@ using Pg.Gba.Gameplay;
 using Pg.Gba.Gameplay.Items;
 using Pg.Gba.State;
 using Pg.Gba.Utils;
-using System;
 
 namespace Pg.Gba.Screens
 {
