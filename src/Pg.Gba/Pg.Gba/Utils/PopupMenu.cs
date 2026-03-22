@@ -36,29 +36,22 @@ namespace Pg.Gba.Utils
             _isVisible = false;
         }
 
-        public void Update(MouseState currentMouseState, MouseState previousMouseState)
+        public bool Update(MouseState currentMouseState, MouseState previousMouseState)
         {
             if (!_isVisible)
-                return;
+                return false;
 
             if (currentMouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton == ButtonState.Released)
             {
                 Vector2 mousePosition = new Vector2(currentMouseState.X, currentMouseState.Y);
 
-                for (int i = 0; i < _actions.Count; i++)
-                {
-                    Rectangle buttonRect = GetImageRect(i);
-                    if (buttonRect.Contains(mousePosition.ToPoint()))
-                    {
-                        OnActionSelected(_actions[i]);
-                        Hide();
-                        return;
-                    }
-                }
+                TryHandleMenuClick(mousePosition); 
 
-                // Close popup if clicked outside
                 Hide();
+                return true;
             }
+
+            return false;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -71,6 +64,20 @@ namespace Pg.Gba.Utils
                 Rectangle imageRect = GetImageRect(i);
                 spriteBatch.Draw(_actions[i].Image, imageRect, Color.White);
             }
+        }
+
+        private bool TryHandleMenuClick(Vector2 mousePosition)
+        {
+            for (int i = 0; i < _actions.Count; i++)
+            {
+                Rectangle buttonRect = GetImageRect(i);
+                if (buttonRect.Contains(mousePosition.ToPoint()))
+                {
+                    OnActionSelected(_actions[i]);
+                    return true;
+                }
+            }
+            return false; 
         }
 
         private Rectangle GetImageRect(int actionIndex)

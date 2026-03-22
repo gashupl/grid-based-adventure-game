@@ -12,6 +12,7 @@ namespace Pg.Gba.Screens
         protected List<ScreenItem> ScreenItems;
         protected List<PopupMenuAction> PopupMenuActions;
         protected Texture2D _backgroundTexture;
+        protected SpriteFont ScreenItemDescriptionFont => Game._screenItemDescriptionFont;
 
         protected GameplayScreenBase(GridBasedAdventureGame game, bool enableMouseInput) : base(game, enableMouseInput)
         {
@@ -67,13 +68,20 @@ namespace Pg.Gba.Screens
             {
                 item.LoadContent(Game.Content);
                 if (item.IsVisible)
-                {        
-                    SpriteBatch.Draw(
+                {
+                    // Draw the item image if available
+                    if (item.Image != null)
+                    {
+                        SpriteBatch.Draw(item.Image, item.Position, Color.White);
+                    }
 
-                        item.Image,
-                        item.Position,
-                        Color.White
-                    );
+                    // If description should be visible, draw it to the right of the item
+                    if (item.IsDescriptionVisible && item.Item?.Description != null)
+                    {
+                        int imageWidth = item.Image?.Width ?? 32; // fallback width
+                        var textPosition = new Vector2(item.Position.X + imageWidth + 10, item.Position.Y);
+                        SpriteBatch.DrawString(ScreenItemDescriptionFont, item.Item.Description, textPosition, Color.Blue);
+                    }
                 }
             }
         }
@@ -85,10 +93,13 @@ namespace Pg.Gba.Screens
                 PopupMenuActions = new List<PopupMenuAction>
                 {
                     new PopupMenuAction(
-                
-                        PopupMenuActionType.Examine, 
-                        Game.Content.Load<Texture2D>("img/menuitems/examine_action")
-                        //TODO (1): Implement show description text action for this. 
+
+                        PopupMenuActionType.Examine,
+                        Game.Content.Load<Texture2D>("img/menuitems/examine_action"), 
+                        (item) => 
+                        {
+                            item.IsDescriptionVisible = true;
+                        }
                     ),
                     new PopupMenuAction(
 

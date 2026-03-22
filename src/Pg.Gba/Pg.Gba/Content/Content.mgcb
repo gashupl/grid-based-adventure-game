@@ -13,6 +13,13 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin fonts/ScreenItemDescriptionFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/ScreenItemDescriptionFont.spritefont
+
 #begin fonts/TitleScreenMenuItemsFont.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor

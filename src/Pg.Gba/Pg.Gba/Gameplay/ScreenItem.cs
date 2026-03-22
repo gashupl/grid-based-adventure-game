@@ -16,6 +16,8 @@ namespace Pg.Gba.Gameplay
 
         internal Texture2D Image { get; set; }
 
+        internal bool IsDescriptionVisible { get; set; }
+
         internal void LoadContent(ContentManager contentManager)
         {
             try

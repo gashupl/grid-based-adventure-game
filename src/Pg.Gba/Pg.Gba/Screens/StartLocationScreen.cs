@@ -1,15 +1,17 @@
-﻿using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework;
-using Pg.Gba.State;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Pg.Gba.Gameplay;
 using Pg.Gba.Gameplay.Items;
+using Pg.Gba.State;
 using Pg.Gba.Utils;
+using System;
 
 namespace Pg.Gba.Screens
 {
     internal class StartLocationScreen : GameplayScreenBase
     {
+        private bool _popupClickExecuted; 
         public StartLocationScreen(GridBasedAdventureGame game, bool enableMouseInput) : base(game, enableMouseInput) 
         {
             SetBackground(); 
@@ -53,8 +55,10 @@ namespace Pg.Gba.Screens
                 ChangeScreen(GameScreen.Title);
             }
 
-            PopupMenu?.Update(inputDeviceState.CurrentMouseState, inputDeviceState.PreviousMouseState);
+            // Update popup menu first - it returns true if it consumed the click
+            _popupClickExecuted = PopupMenu?.Update(inputDeviceState.CurrentMouseState, inputDeviceState.PreviousMouseState) ?? false;
 
+            // Must call base.Update() so mouse click handlers are invoked
             base.Update(gameTime, inputDeviceState);
         }
 
@@ -76,8 +80,15 @@ namespace Pg.Gba.Screens
             PopupMenu?.Draw(SpriteBatch);
         }
 
+        protected override void HandleLeftMouseClick(MouseState currentMouseState, MouseState previousMouseState)
+        {
+            TryHandlePopupClickExecuted(); 
+        }
+
         protected override void HandleRightMouseClick(MouseState currentMouseState, MouseState previousMouseState)
         {
+            TryHandlePopupClickExecuted();
+
             // Store mouse position on right click
             var rightClickPosition = new Vector2(currentMouseState.X, currentMouseState.Y);
 
@@ -93,6 +104,18 @@ namespace Pg.Gba.Screens
                 {
                     PopupMenu?.Hide();
                 }
+            }
+        }
+
+        private void TryHandlePopupClickExecuted()
+        {
+            // Only process screen input if popup didn't consume the click
+            if (!_popupClickExecuted)
+            {
+                this.ScreenItems.ForEach(screenItem =>
+                {
+                    screenItem.IsDescriptionVisible = false;
+                });
             }
         }
     }

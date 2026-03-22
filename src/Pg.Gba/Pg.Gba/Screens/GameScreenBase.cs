@@ -13,7 +13,7 @@ namespace Pg.Gba.Screens
         protected GridBasedAdventureGame Game { get; private set; }
         protected SpriteBatch SpriteBatch => Game._spriteBatch;
         protected SpriteFont TitleScreenTitleFont => Game._titleScreenTitleFont;
-        protected SpriteFont TitleScreenMenuItemFont => Game._titleScreenMenuItemFont; 
+        protected SpriteFont TitleScreenMenuItemFont => Game._titleScreenMenuItemFont;       
         protected bool EnableMouseInput;
 
         protected PopupMenu PopupMenu;
