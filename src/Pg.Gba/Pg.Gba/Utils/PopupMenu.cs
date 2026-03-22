@@ -36,7 +36,6 @@ namespace Pg.Gba.Utils
             _isVisible = false;
         }
 
-        //TODO (1) This method has too many responsiblitites and should be refactored to separate concerns (e.g. click detection vs action handling)
         public bool Update(MouseState currentMouseState, MouseState previousMouseState)
         {
             if (!_isVisible)
@@ -46,18 +45,8 @@ namespace Pg.Gba.Utils
             {
                 Vector2 mousePosition = new Vector2(currentMouseState.X, currentMouseState.Y);
 
-                for (int i = 0; i < _actions.Count; i++)
-                {
-                    Rectangle buttonRect = GetImageRect(i);
-                    if (buttonRect.Contains(mousePosition.ToPoint()))
-                    {
-                        OnActionSelected(_actions[i]);
-                        Hide();
-                        return true;
-                    }
-                }
+                TryHandleMenuClick(mousePosition); 
 
-                // Close popup if clicked outside (still consume the click)
                 Hide();
                 return true;
             }
@@ -75,6 +64,20 @@ namespace Pg.Gba.Utils
                 Rectangle imageRect = GetImageRect(i);
                 spriteBatch.Draw(_actions[i].Image, imageRect, Color.White);
             }
+        }
+
+        private bool TryHandleMenuClick(Vector2 mousePosition)
+        {
+            for (int i = 0; i < _actions.Count; i++)
+            {
+                Rectangle buttonRect = GetImageRect(i);
+                if (buttonRect.Contains(mousePosition.ToPoint()))
+                {
+                    OnActionSelected(_actions[i]);
+                    return true;
+                }
+            }
+            return false; 
         }
 
         private Rectangle GetImageRect(int actionIndex)
