@@ -68,6 +68,7 @@ namespace Pg.Gba
             {
                 { GameScreen.Title, new TitleScreen(this) },
                 { GameScreen.Poc, new PocScreen(this, true) },
+                { GameScreen.StartScreen, new StartScreen(this, false)  },
                 { GameScreen.StartLocation, new StartLocationScreen(this, true) }
             };
 
@@ -120,14 +121,12 @@ namespace Pg.Gba
         {
             switch (GameState.Instance.CurrentScreen)
             {
-                case State.GameScreen.Title:
+                case GameScreen.Title:
                     return Color.CornflowerBlue;
-                case State.GameScreen.Poc:
+                case GameScreen.Poc:
                     return Color.Green; 
-                case State.GameScreen.StartLocation:
-                    return Color.Black;
                 default:
-                    return Color.Yellow;
+                    return Color.Black;
             }
         }
     }
