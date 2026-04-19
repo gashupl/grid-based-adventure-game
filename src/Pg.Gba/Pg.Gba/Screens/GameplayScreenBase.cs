@@ -20,7 +20,9 @@ namespace Pg.Gba.Screens
             LoadPopupMenuActions(); 
         }
 
-        protected abstract void SetSceneItems();
+        protected virtual void SetSceneItems() { }
+
+        protected virtual void SetBackground() { }
 
         protected void DrawScene()
         {     
@@ -44,7 +46,6 @@ namespace Pg.Gba.Screens
             }
         }
 
-        protected abstract void SetBackground(); 
 
         private void DrawBackground()
         {

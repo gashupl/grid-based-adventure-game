@@ -4,6 +4,7 @@
     {
         Title,
         Poc,
+        StartScreen, 
         StartLocation
     }
 }
