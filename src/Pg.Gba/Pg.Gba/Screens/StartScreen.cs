@@ -1,11 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Pg.Gba.State;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pg.Gba.Screens
 {
@@ -14,8 +9,6 @@ namespace Pg.Gba.Screens
 
         public StartScreen(GridBasedAdventureGame game, bool enableMouseInput) : base(game, enableMouseInput)
         {
-            //SetBackground();
-            //SetSceneItems();
         }
 
         public override void Update(GameTime gameTime, InputDevicesState inputDeviceState)
@@ -36,14 +29,5 @@ namespace Pg.Gba.Screens
             SpriteBatch.DrawString(ScreenItemDescriptionFont, "Press [ENTER]", new Vector2(10, 10 + textYLineDistance * 4), Color.White);
         }
 
-        protected override void SetBackground()
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void SetSceneItems()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
