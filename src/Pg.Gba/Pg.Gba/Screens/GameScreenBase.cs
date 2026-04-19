@@ -41,9 +41,9 @@ namespace Pg.Gba.Screens
         }
         public abstract void Draw();
 
-        protected void ChangeScreen(State.GameScreen newState)
+        protected static void ChangeScreen(GameScreen newState)
         {
-            Game.ChangeState(newState);
+            GridBasedAdventureGame.ChangeState(newState);
         }
         protected void ExitGame()
         {
