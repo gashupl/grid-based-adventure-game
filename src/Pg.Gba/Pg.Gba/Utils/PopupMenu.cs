@@ -10,9 +10,10 @@ namespace Pg.Gba.Utils
     internal class PopupMenu
     {
         private Vector2 _position;
-        private List<PopupMenuAction> _actions;
         private bool _isVisible;
-        private ScreenItem _parentScreenItem; 
+
+        private readonly List<PopupMenuAction> _actions;      
+        private readonly ScreenItem _parentScreenItem; 
 
         private const int ImagePadding = 5;
 
@@ -66,7 +67,7 @@ namespace Pg.Gba.Utils
             }
         }
 
-        private bool TryHandleMenuClick(Vector2 mousePosition)
+        private void TryHandleMenuClick(Vector2 mousePosition)
         {
             for (int i = 0; i < _actions.Count; i++)
             {
@@ -74,10 +75,8 @@ namespace Pg.Gba.Utils
                 if (buttonRect.Contains(mousePosition.ToPoint()))
                 {
                     OnActionSelected(_actions[i]);
-                    return true;
                 }
             }
-            return false; 
         }
 
         private Rectangle GetImageRect(int actionIndex)
