@@ -19,8 +19,6 @@ namespace Pg.Gba.Screens
         {
             ScreenItems = new List<ScreenItem>();
             LoadPopupMenuActions();
-            SetBackground();
-            SetSceneItems();
         }
 
         protected virtual void SetSceneItems() { }
@@ -111,7 +109,7 @@ namespace Pg.Gba.Screens
                         Game.Content.Load<Texture2D>("img/menuitems/take_action"), 
                         (item) => 
                         {
-                            if(item is ScreenItem)
+                            if(item is not null)
                             {
                                 GameState.Instance.InventoryItems.Add(new InventoryItem(item));
                                 this.ScreenItems.Remove(item);

@@ -13,6 +13,8 @@ namespace Pg.Gba.Screens
         private bool _popupClickExecuted; 
         public StartLocationScreen(GridBasedAdventureGame game, bool enableMouseInput) : base(game, enableMouseInput) 
         {
+            SetBackground();
+            SetSceneItems();
         }
 
         protected override void SetSceneItems()
