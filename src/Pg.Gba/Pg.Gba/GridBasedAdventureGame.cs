@@ -38,7 +38,7 @@ namespace Pg.Gba
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            GameState.Instance.CurrentScreen = State.GameScreen.Title;
+            GameState.Instance.CurrentScreen = GameScreen.Title;
         }
 
         protected override void Initialize()
@@ -84,7 +84,7 @@ namespace Pg.Gba
 
         }
 
-        public void ChangeState(State.GameScreen newState)
+        public static void ChangeState(GameScreen newState)
         {
             GameState.Instance.CurrentScreen = newState;
         }
@@ -117,7 +117,7 @@ namespace Pg.Gba
             base.Draw(gameTime);
         }
 
-        private Color GetBackgroundColor()
+        private static Color GetBackgroundColor()
         {
             switch (GameState.Instance.CurrentScreen)
             {

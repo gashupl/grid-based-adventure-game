@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Pg.Gba.Gameplay;
 using Pg.Gba.State;
 using Pg.Gba.Utils;
+using Serilog;
 using System.Collections.Generic;
 
 namespace Pg.Gba.Screens
@@ -17,7 +18,7 @@ namespace Pg.Gba.Screens
         protected GameplayScreenBase(GridBasedAdventureGame game, bool enableMouseInput) : base(game, enableMouseInput)
         {
             ScreenItems = new List<ScreenItem>();
-            LoadPopupMenuActions(); 
+            LoadPopupMenuActions();
         }
 
         protected virtual void SetSceneItems() { }
@@ -59,7 +60,7 @@ namespace Pg.Gba.Screens
             }
             else
             {
-                //TODO (3): Add logging for missing background texture
+                Log.Error("Background texture is missing in {ClassName}", this.GetType().Name);
             }
         }
 
@@ -108,7 +109,7 @@ namespace Pg.Gba.Screens
                         Game.Content.Load<Texture2D>("img/menuitems/take_action"), 
                         (item) => 
                         {
-                            if(item != null && item is ScreenItem)
+                            if(item is not null)
                             {
                                 GameState.Instance.InventoryItems.Add(new InventoryItem(item));
                                 this.ScreenItems.Remove(item);

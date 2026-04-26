@@ -94,14 +94,5 @@ namespace Pg.Gba.Screens
 
         }
 
-        protected override void SetSceneItems()
-        {
-            ; 
-        }
-
-        protected override void SetBackground()
-        {
-            ; 
-        }
     }
 }
