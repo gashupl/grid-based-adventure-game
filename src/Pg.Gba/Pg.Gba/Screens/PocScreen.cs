@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Pg.Gba.State;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using SharpDX.Direct2D1;
 using Pg.Gba.Utils;
 
 namespace Pg.Gba.Screens
