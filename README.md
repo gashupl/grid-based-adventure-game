@@ -1,6 +1,6 @@
 # \# grid-based-adventure-game
 
-# Technical demo of my grid-based adventure game. 
+# Technical demo of my grid-based adventure game.
 
 # 
 
@@ -14,7 +14,7 @@
 
 # 
 
-# dotnet publish -r win-x64 
+# dotnet publish -r win-x64
 
 # 
 
@@ -30,5 +30,7 @@
 
 # \## Third party components used:
 
-# Ranchers Fonts licenced on SIL OPEN FONT LICENSE Version 1.1 and downloaded from: https://fonts.google.com/specimen/Ranchers
+# \- Ranchers Fonts licensed under SIL Open Font License Version 1.1, downloaded from: https://fonts.google.com/specimen/Ranchers
+
+# \- Liberation Fonts licensed under SIL Open Font License Version 1.1, see LiberationSans-LICENSE.txt
 
