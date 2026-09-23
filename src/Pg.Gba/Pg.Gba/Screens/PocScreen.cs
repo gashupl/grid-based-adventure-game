@@ -13,6 +13,8 @@ namespace Pg.Gba.Screens
         private Texture2D _sampleImage;
         private Vector2 _imagePosition;
         private bool _isImageClicked = false;
+        private bool _isDraggingImage = false;
+        private Vector2 _dragOffset;
         private readonly Random _random = new Random();
 
         // Add this variable to store the mouse position
@@ -36,6 +38,7 @@ namespace Pg.Gba.Screens
                 ChangeScreen(GameScreen.Title);
             }
 
+            UpdateImageDragging(inputDeviceState.CurrentMouseState, inputDeviceState.PreviousMouseState);
             PopupMenu?.Update(inputDeviceState.CurrentMouseState, inputDeviceState.PreviousMouseState);
 
             base.Update(gameTime, inputDeviceState);
@@ -64,9 +67,44 @@ namespace Pg.Gba.Screens
             _sampleImage = this.Game.Content.Load<Texture2D>("img/sample01");
 
             // Calculate random position ensuring the image stays within bounds
-            int maxX = this.Game.GraphicsDevice.Viewport.Width - 32;
-            int maxY = this.Game.GraphicsDevice.Viewport.Height - 32;
+            int maxX = this.Game.GraphicsDevice.Viewport.Width - _sampleImage.Width;
+            int maxY = this.Game.GraphicsDevice.Viewport.Height - _sampleImage.Height;
             _imagePosition = new Vector2(_random.Next(0, maxX + 1), _random.Next(0, maxY + 1));
+        }
+
+        private void UpdateImageDragging(MouseState currentMouseState, MouseState previousMouseState)
+        {
+            if (currentMouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton == ButtonState.Released)
+            {
+                _isImageClicked = ImageHelper.IsImageClicked(_sampleImage, _imagePosition, currentMouseState);
+                if (_isImageClicked)
+                {
+                    _isDraggingImage = true;
+                    _dragOffset = new Vector2(
+                        currentMouseState.X - _imagePosition.X,
+                        currentMouseState.Y - _imagePosition.Y);
+                }
+            }
+            else if (_isDraggingImage && currentMouseState.LeftButton == ButtonState.Pressed)
+            {
+                _imagePosition = ClampImagePosition(new Vector2(
+                    currentMouseState.X - _dragOffset.X,
+                    currentMouseState.Y - _dragOffset.Y));
+            }
+            else if (_isDraggingImage && currentMouseState.LeftButton == ButtonState.Released)
+            {
+                _isDraggingImage = false;
+            }
+        }
+
+        private Vector2 ClampImagePosition(Vector2 position)
+        {
+            var maxX = Math.Max(0, Game.GraphicsDevice.Viewport.Width - _sampleImage.Width);
+            var maxY = Math.Max(0, Game.GraphicsDevice.Viewport.Height - _sampleImage.Height);
+
+            return new Vector2(
+                Math.Clamp(position.X, 0, maxX),
+                Math.Clamp(position.Y, 0, maxY));
         }
 
         protected override void HandleLeftMouseClick(MouseState currentMouseState, MouseState previousMouseState)
