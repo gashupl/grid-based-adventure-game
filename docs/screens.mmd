@@ -1,0 +1,39 @@
+classDiagram
+    GameScreenBase<|-- GameplayScreenBase
+    GameScreenBase <|-- StartScreen
+    GameScreenBase <|-- PocScreen
+    GameScreenBase <|-- TitleScreen
+    GameplayScreenBase <|-- StartLocationScreen
+    GameplayScreenBase <|-- NextLocationScreen
+    class GameScreenBase{
+        <<responsibilities>>
+        - Monogame devices input handling
+        - Overwrite Monogame methods
+    }
+    class GameplayScreenBase{
+        <<responsibilities>>
+        - switch screen into Inventory, Gameplay and footer sections
+        - screen background rendering
+        - screen items rendering
+        - inventory items rendering
+        - switching between gameplay screen modes, showing popups, drag and drop items, etc
+    }
+    class TitleScreen{
+        <<responsibilities>>
+    }
+    class StartScreen{
+        <<responsibilities>>
+    }
+    class PocScreen{
+        <<responsibilities>>
+
+    }
+    class StartLocationScreen{
+        <<responsibilities>>
+        - set background and screen items for current location
+
+    }
+    class NextLocationScreen{
+        <<responsibilities>>
+        - set background and screen items for current location
+    }
